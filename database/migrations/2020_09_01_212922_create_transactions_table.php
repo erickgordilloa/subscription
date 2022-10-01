@@ -31,6 +31,7 @@ class CreateTransactionsTable extends Migration {
 			$table->bigInteger('user_refund')->nullable();
 			$table->dateTime('date_refund')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

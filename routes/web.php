@@ -11,8 +11,15 @@
 |
  */
 
-//Route::get('/', 'DonacionesController@index')->name('index');
-Route::get('/', function () {
+## GUEST ROUTE
+Route::get('/', 'Guest\IndexController@index')->name('suscriptor.index');
+
+
+Route::get('/login', function () {
+	return redirect('login');
+})->name('login');
+
+Route::get('/login', function () {
 	return redirect('login');
 })->name('login');
 
@@ -30,7 +37,7 @@ Route::post('donacion', 'DonacionesController@donacion')->name('donacion');
 
 
 #personas
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware(['checkRole:Administrador']);;
 Route::post('/data/personas', 'HomeController@data')->name('personas');
 Route::post('/post/personas', 'HomeController@post')->name('personas.post');
 

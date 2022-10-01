@@ -20,6 +20,7 @@ class CreateSubscriptionsTable extends Migration {
 			$table->char('es_editable',1)->nullable();
 			$table->text('texto')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

@@ -18,6 +18,7 @@ class CreateTableSubscriptionsFiles extends Migration
             $table->bigInteger('subscription_id');
             $table->string('archivo')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

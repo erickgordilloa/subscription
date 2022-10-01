@@ -44,4 +44,12 @@ class LoginController extends Controller
     {        
        return ['email' => $request->{$this->username()}, 'password' => $request->password, 'status' => 'A'];
     }
+
+    public function authenticated($request , $user){
+        if($user->role_id==1){
+            return redirect()->route('home');
+        }
+        //suscriptor
+        return redirect()->route('suscriptor.index');       
+    }
 }

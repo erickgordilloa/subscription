@@ -35,8 +35,6 @@
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
-
-                    
                 </div>
             </div>
         </nav>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSettingsTable extends Migration
+class CreateUserSubscriptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('user_subscriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('text_transferencia')->nullable();
-            $table->text('text_ayuda')->nullable();
-            $table->double('max_monto',10,2)->nullable();
+            $table->bigInteger('user_id');
+            $table->bigInteger('subscription_id');
+            $table->bigInteger('type_subscription_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +30,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('user_subscriptions');
     }
 }

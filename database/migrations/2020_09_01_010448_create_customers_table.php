@@ -21,6 +21,7 @@ class CreateCustomersTable extends Migration {
 			$table->string('direccion', 250)->nullable();
 			$table->string('celular', 20)->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
