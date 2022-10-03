@@ -59,21 +59,21 @@
           
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto"  style="margin-top: 14px;">
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::is('suscriptor.suscripciones') ? 'active' : '' }}" href="{{ route('suscriptor.suscripciones') }}">{{ __('Suscripciones') }}</a>
+                </li>
                 @guest
                         
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar Sesión') }}</a>
                         </li>
                         {{-- @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
                             </li>
                         @endif --}}
                     @else
                     @if (Auth::user()->role->name == 'Suscriptor')
-                        <li class="nav-item">
-                            <a class="nav-link {{ Route::is('suscriptor.suscripciones') ? 'active' : '' }}" href="{{ route('suscriptor.suscripciones') }}">{{ __('Suscripciones') }}</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link {{ Route::is('suscriptor.pedidos') ? 'active' : '' }}" href="{{ route('suscriptor.pedidos') }}">{{ __('Pedidos') }}</a>
                         </li>
@@ -119,6 +119,7 @@
                 @yield('content')
         </main>
 
+        {{-- <footer class="principal fixed-bottom"> --}}
         <footer class="principal">
             <div class="container">
                 <div class="row p-4">
