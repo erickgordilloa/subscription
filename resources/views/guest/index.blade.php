@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row justify-content-center">
-                @foreach($suscripciones as $rst)
+                @forelse ($suscripciones as $rst)
                     <div class="col-md-4 mb-5 mt-3" >
                         <div class="card border-primary">
                             <div class="card" >
@@ -30,13 +30,17 @@
                                     @guest
                                     <a class="btn btn-primary mt-3" href="{{ route('login') }}">Seleccionar ${{$rst->monto}}</a>
                                     @else
-                                    <button onclick="subscribirse({{$rst->id}},'{{$rst->nombre}}')" class="btn btn-primary mt-3">Seleccionar ${{$rst->monto}}</button>
+                                    @if (Auth::user()->role->name == 'Suscriptor')
+                                        <button onclick="subscribirse({{$rst->id}},'{{$rst->nombre}}')" class="btn btn-primary mt-3">Seleccionar ${{$rst->monto}}</button>    
+                                    @endif
                                     @endguest
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <p>Ningún dato disponible para mostrar =(</p>
+                @endforelse
             </div>
             <div class="row justify-content-center p-4">
                 {!! $suscripciones->render() !!}

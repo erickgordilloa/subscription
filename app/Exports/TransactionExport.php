@@ -24,13 +24,7 @@ class TransactionExport implements FromCollection,WithHeadings,WithMapping
     }
     public function collection()
     {
-        /*return  Transaction::with('tipo')->with('persona')
-		->whereBetween('transactions.created_at', [$this->fecha_ini, $this->fecha_fin])
-		->where('transactions.status','like',"%$this->estado%")
-		->select('amount')
-		->orderBy('created_at','DESC')
-		->get();*/
-		return  Transaction::with('tipo')->with('persona')->orderBy('created_at','DESC')
+		return  Transaction::with('tipo')->with('user')->orderBy('created_at','DESC')
 		->whereBetween('transactions.created_at', [$this->fecha_ini, $this->fecha_fin])
 		->where('transactions.status','like',"%$this->estado%")
 		->get();
@@ -57,10 +51,10 @@ class TransactionExport implements FromCollection,WithHeadings,WithMapping
 
      public function map($transaction): array {
         return [
-            $transaction->persona->nombre,
-            $transaction->persona->apellido,
-            $transaction->persona->identidad,
-            $transaction->persona->correo,
+            $transaction->user->name,
+            '$transaction->persona->apellido',
+            '$transaction->persona->identidad',
+            $transaction->user->email,
             $transaction->authorization_code,
             $transaction->id_response,
             $transaction->amount,

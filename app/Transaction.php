@@ -7,13 +7,24 @@ use Illuminate\Database\Eloquent\softDeletes;
 
 class Transaction extends Model {
 	use SoftDeletes;
-	//pertene a
-	public function tipo() {
-		return $this->belongsTo(Subscription::class, 'reference');
-	}
 
 	//pertene a
 	public function persona() {
 		return $this->belongsTo(Customer::class, 'id_customer');
+	}
+
+	//pertene a
+	public function user() {
+		return $this->belongsTo(User::class);
+	}
+	
+	//pertene a
+	public function subscription() {
+		return $this->belongsTo(Subscription::class);
+	}
+	
+	//pertene a
+	public function card() {
+		return $this->belongsTo(Card::class);
 	}
 }

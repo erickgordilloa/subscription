@@ -1,6 +1,6 @@
 @component('mail::message')
 
-Hola {{$transaction->persona->nombre}} {{$transaction->persona->apellido}}, <br>Hemos recibido una transacción por motivo de  {{$transaction->tipo->nombre}} <br>
+Hola {{$transaction->user->name}}, <br>Hemos recibido una transacción por motivo de {{$transaction->tipo->nombre}} <br>
 
 # Detalle de la transacción
 Id de la transacción: {{$transaction->id_response}} <br>

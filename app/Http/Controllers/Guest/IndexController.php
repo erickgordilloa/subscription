@@ -13,18 +13,17 @@ class IndexController extends Controller
     
 
     public function index(Request $request){
-        if($request->search){
-            $search=$request->search;
-        }else{
-            $search="";
+        $search="";
+        if($request->q){
+            $search=$request->q;
         }
 
         $suscripciones = Subscription::where(function ($query) use ($search) {
-            $query->where('nombre', 'LIKE', '%'.$search.'%');
+            $query->where('nombre', 'LIKE', '%'.$search.'%')->orWhere('detalle', 'LIKE', '%'.$search.'%');
         })->paginate(9);
 
         $typeSubscriptions = TypeSubscription::all();
-        return view('guest.index',compact('suscripciones','typeSubscriptions'));
+        return view('guest.index',compact('suscripciones','typeSubscriptions','search'));
     }
     
     

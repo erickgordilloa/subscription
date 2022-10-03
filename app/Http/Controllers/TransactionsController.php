@@ -25,7 +25,7 @@ class TransactionsController extends Controller {
 	}
 
 	public function data(Request $request) {
-		$results = Transaction::with('tipo')->with('persona')->orderBy('created_at','DESC')
+		$results = Transaction::with('tipo')->with('user')->orderBy('created_at','DESC')
 		->whereBetween('transactions.created_at', [$request->fecha_ini.' 00:00:00', $request->fecha_fin.' 23:59:59'])
 		->where('transactions.status','like',"%$request->estado%")
 		->get();
@@ -97,11 +97,10 @@ class TransactionsController extends Controller {
 
 	public function resend(Request $request)
 	{
-		$transaction = Transaction::with('tipo')->with('tipo.adjunto')->with('persona')->where('transactions.id',$request->id)->first();
+		$transaction = Transaction::with('tipo')->with('tipo.adjunto')->with('user')->where('transactions.id',$request->id)->first();
 
-		if (!empty($transaction->persona->correo) && $transaction->status == 'success') {
-			Mail::to($transaction->persona->correo)->cc(env('EMAIL_COPY'))->send(new SendNotification($transaction));
-			#Mail::to($transaction->persona->correo)->send(new SendNotification($transaction));
+		if (!empty($transaction->user->email) && $transaction->status == 'success') {
+			Mail::to($transaction->user->email)->cc(env('EMAIL_COPY'))->send(new SendNotification($transaction));
 		}
 
 		return response()->json(['msg' => 'success', 'data' => 'Correo reenviado correctamente.']);

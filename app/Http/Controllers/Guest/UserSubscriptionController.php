@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guest;
 
 use App\UserSubscription;
+use App\Transaction;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -35,5 +36,14 @@ class UserSubscriptionController extends Controller
         $userSubscription = UserSubscription::find($id);
         $userSubscription->delete();
         return 'ok';
+    }
+
+    public function pagos(){
+        return view('guest.pagos');
+    }
+    
+    public function pagosData(){
+        $results = Transaction::where('user_id',auth()->user()->id)->with('user')->with('card')->with('subscription')->get();
+        return view('guest.pagosTabla', compact('results'));
     }
 }

@@ -49,10 +49,10 @@ class TransaccionesController extends Controller
 			$transaction->status_detail = $request['transaction']['status_detail'];
 			$transaction->save();
 
-			$transaction = Transaction::with('tipo')->with('persona')->where('transactions.id',$transaction->id)->first();
+			$transaction = Transaction::with('tipo')->with('user')->where('transactions.id',$transaction->id)->first();
 
 			if (!empty($transaction) && $transaction->status == 'success') {
-				Mail::to($transaction->persona->correo)->cc('contabilidad@alianzasamborondon.org')->send(new SendNotification($transaction));
+				Mail::to($transaction->user->email)->cc('contabilidad@alianzasamborondon.org')->send(new SendNotification($transaction));
 			}    		
 
     		return response()->json(

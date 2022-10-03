@@ -88,6 +88,7 @@
                 success: function (d) {
                     Swal.close();
                     if (d["msg"] == "success") {
+                        view_table();
                         if(status == 'review'){
                             Swal.fire("Éxito", "Tarjeta en revisión", "warning");
                         }else{
@@ -156,9 +157,6 @@
                         <div class="card border-primary">
                             <div class="card-header"> 
                                 Listado de tarjetas
-                                <div class="btn-actions-pane-right">
-                                    <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#exampleModal">Agregar tarjeta</button>
-                                </div>
                             </div>
                             <div class="card-body">
                                 <div id="div_table">

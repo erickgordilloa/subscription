@@ -70,25 +70,27 @@
                             </li>
                         @endif --}}
                     @else
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('suscriptor.suscripciones') ? 'active' : '' }}" href="{{ route('suscriptor.suscripciones') }}">{{ __('Suscripciones') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('suscriptor.pedidos') ? 'active' : '' }}" href="{{ route('suscriptor.pedidos') }}">{{ __('Pedidos') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('card.index') ? 'active' : '' }}" href="{{ route('card.index') }}">{{ __('Tarjetas') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('suscriptor.pedidos') ? 'active' : '' }}" href="{{ route('card.index') }}">{{ __('Pagos') }}</a>
-                    </li>
+                    @if (Auth::user()->role->name == 'Suscriptor')
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::is('suscriptor.suscripciones') ? 'active' : '' }}" href="{{ route('suscriptor.suscripciones') }}">{{ __('Suscripciones') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::is('suscriptor.pedidos') ? 'active' : '' }}" href="{{ route('suscriptor.pedidos') }}">{{ __('Pedidos') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::is('card.index') ? 'active' : '' }}" href="{{ route('card.index') }}">{{ __('Tarjetas') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::is('pagos.index') ? 'active' : '' }}" href="{{ route('pagos.index') }}">{{ __('Pagos') }}</a>
+                        </li>
+                    @endif
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {{ Route::is('perfil.index') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->name }} 
                         </a>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#">Perfil</a>
+                          <a class="dropdown-item" href="{{ route('perfil.index') }}">Perfil</a>
                           <a class="dropdown-item" href="{{ route('logout') }}"
                           onclick="event.preventDefault();
                                       document.getElementById('logout-form').submit();">Cerrar sesión</a>
@@ -103,8 +105,8 @@
 
                
               </ul>
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
+              <form class="form-inline my-2 my-lg-0" action="{{route('suscriptor.index')}}">
+                <input class="form-control mr-sm-2" type="search" name="q" value='{{ $search ?? '' }}' value="{{ request('search') }}" placeholder="Buscar" aria-label="Buscar">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
               </form>
             </div>

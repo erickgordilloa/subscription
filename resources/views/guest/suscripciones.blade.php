@@ -67,7 +67,7 @@
                 <div class="card-body">
                     <div class="col-md-12">
                         <div class="row justify-content-center">
-                            @foreach($suscripciones as $rst)
+                            @forelse ($suscripciones as $rst)
                                 <div class="col-md-4 mb-5 mt-3" >
                                     <div class="card border-primary">
                                         <div class="card" >
@@ -81,7 +81,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty
+                                <p>Ningún dato disponible para mostrar =(</p>   
+                            @endforelse
                         </div>
                         <div class="row justify-content-center p-4">
                             {!! $suscripciones->render() !!}

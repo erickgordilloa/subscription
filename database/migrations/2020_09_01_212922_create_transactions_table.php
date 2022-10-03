@@ -13,9 +13,10 @@ class CreateTransactionsTable extends Migration {
 	public function up() {
 		Schema::create('transactions', function (Blueprint $table) {
 			$table->bigIncrements('id');
-			$table->bigInteger('id_customer');
+			$table->bigInteger('user_id');
 			$table->double('amount', 10, 4)->nullable();
 			$table->bigInteger('subscription_id')->nullable();
+			$table->bigInteger('card_id')->nullable();
 			$table->text('comentario')->nullable();
 			$table->string('authorization_code', 250)->nullable();
 			$table->string('carrier_code', 250)->nullable();

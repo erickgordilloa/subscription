@@ -47,7 +47,7 @@ class DonacionesController extends Controller {
 			}
 
 			$transaction = new Transaction;
-			$transaction->id_customer = $customer->id;
+			$transaction->user_id = $customer->id;
 			$transaction->amount = $request->monto;
 			$transaction->comentario = $request->comentario;
 			$transaction->subscription_id = $request->tipo;
@@ -84,7 +84,7 @@ class DonacionesController extends Controller {
 		$transaction->status_detail = $request->status_detail;
 		$transaction->save();
 
-		$transaction = Transaction::with('tipo')->with('tipo.adjunto')->with('persona')->where('transactions.id',$transaction->id)->first();
+		$transaction = Transaction::with('tipo')->with('tipo.adjunto')->with('user')->where('transactions.id',$transaction->id)->first();
 
 		if (!empty($transaction) && $transaction->status == 'success') {
 			Mail::to($request->correo)->cc(env('EMAIL_COPY'))->send(new SendNotification($transaction));
