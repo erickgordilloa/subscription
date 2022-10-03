@@ -21,6 +21,9 @@ class CreateCardsTable extends Migration
             $table->string('transaction_reference');
             $table->string('expiry_month');
             $table->string('expiry_year');
+            $table->string('bin');
+            $table->string('number');
+            $table->string('type');
             $table->string('response');
             $table->boolean('default_debit');
             $table->timestamps();

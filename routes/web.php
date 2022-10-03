@@ -11,33 +11,34 @@
 |
  */
 
-## GUEST ROUTE
+
+
+
+Route::get('/login', function () {
+	return redirect('login');
+})->name('login');
+
+#RUTAS DEL SUSCRIPTOR
 Route::get('/', 'Guest\IndexController@index')->name('suscriptor.index');
+Route::get('suscripciones', 'Guest\IndexController@index')->name('suscriptor.suscripciones');
+Route::get('pedidos', 'Guest\UserSubscriptionController@suscripciones')->name('suscriptor.pedidos')->middleware(['checkRole:Suscriptor']);
+Route::post('suscribir', 'Guest\UserSubscriptionController@suscribir')->name('suscriptor.suscribir')->middleware(['checkRole:Suscriptor']);
+Route::delete('suscripciones/{id}', 'Guest\UserSubscriptionController@delete')->name('suscriptor.suscripciones.delete');
+Route::get('tarjetas', 'Guest\CardController@index')->name('card.index')->middleware(['checkRole:Suscriptor']);
+Route::post('tarjetas/data', 'Guest\CardController@data')->name('card.data')->middleware(['checkRole:Suscriptor']);
+Route::post('tarjetas', 'Guest\CardController@create')->name('card.create')->middleware(['checkRole:Suscriptor']);
 
-
-Route::get('/login', function () {
-	return redirect('login');
-})->name('login');
-
-Route::get('/login', function () {
-	return redirect('login');
-})->name('login');
-
-Route::get('/tarjeta', function () {
-	return view('auth.card');
-})->name('tarjeta');
 
 Route::get('/terminos-y-condiciones', function () {
 	return view('web.terminos');
 })->name('terminos');
 
 Route::post('crear', 'DonacionesController@create')->name('create');
-
 Route::post('donacion', 'DonacionesController@donacion')->name('donacion');
 
 
 #personas
-Route::get('/home', 'HomeController@index')->name('home')->middleware(['checkRole:Administrador']);;
+Route::get('/home', 'HomeController@index')->name('home')->middleware(['checkRole:Administrador']);
 Route::post('/data/personas', 'HomeController@data')->name('personas');
 Route::post('/post/personas', 'HomeController@post')->name('personas.post');
 

@@ -52,28 +52,13 @@ class DatabaseSeeder extends Seeder {
 		
 
 		//SUSCRIPCIONES
-		DB::table('subscriptions')->insert([
-			'nombre' => 'subscription 1',
-			'detalle' => 'subscriptions 1',
-			'monto' => '0',
-		]);
-
-		DB::table('subscriptions')->insert([
-			'nombre' => 'subscriptions 2',
-			'detalle' => 'subscriptions 2',
-			'monto' => '0',
-		]);
-
-		DB::table('subscriptions')->insert([
-			'nombre' => 'subscriptions 3',
-			'detalle' => 'subscriptions 3',
-			'monto' => '150',
-		]);
-
-		DB::table('subscriptions')->insert([
-			'nombre' => 'Otros',
-			'detalle' => 'Otros',
-			'monto' => '0',
-		]);
+		for ($i=0; $i < 50; $i++) { 
+			DB::table('subscriptions')->insert([
+				'nombre' => 'subscription '.$i,
+				'detalle' => 'subscriptions '.$i,
+				'monto' => range(100,150)[$i],
+				'imagen' => 'https://paqucafe.com/wp-content/uploads/2021/08/CAJA-DOBLE.jpg'
+			]);
+		}
 	}
 }

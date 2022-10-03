@@ -1,6 +1,12 @@
 @extends('guest.layout')
 
-
+@section('js')
+    <script src="{{ asset('../js/guest.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="../../vendor/datatables/js/jquery.dataTables.js"></script>
+    <script src="../../vendor/datatables/js/dataTables.bootstrap4.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>
+@stop
 
 
 @section('content')
@@ -8,24 +14,33 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row justify-content-center">
-                @for($i=0;$i<20;$i++)
+                @foreach($suscripciones as $rst)
                     <div class="col-md-4 mb-5 mt-3" >
                         <div class="card border-primary">
                             <div class="card" >
-                                <img src="https://paqucafe.com/wp-content/uploads/2021/08/CAJA-DOBLE.jpg" class="card-img-top" alt="cafe">
+                                <img src="{{$rst->imagen}}" class="card-img-top" alt="cafe">
                                 <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Seleccionar</a>
+                                    <h5 class="card-title">{{$rst->nombre}}</h5>
+                                    <p class="card-text">{{$rst->detalle}}.</p>
+                                    <select name="month" id="month_{{$rst->id}}" class="form-control">
+                                        @foreach ($typeSubscriptions as $typeSubscription)
+                                            <option value="{{$typeSubscription->id}}">{{$typeSubscription->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @guest
+                                    <a class="btn btn-primary mt-3" href="{{ route('login') }}">Seleccionar ${{$rst->monto}}</a>
+                                    @else
+                                    <button onclick="subscribirse({{$rst->id}},'{{$rst->nombre}}')" class="btn btn-primary mt-3">Seleccionar ${{$rst->monto}}</button>
+                                    @endguest
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endfor
+                @endforeach
             </div>
-            {{-- <div class="row justify-content-center p-4">
-                {!! $ofertas->render() !!}
-            </div> --}}
+            <div class="row justify-content-center p-4">
+                {!! $suscripciones->render() !!}
+            </div>
         </div>
     </div>
 </div>

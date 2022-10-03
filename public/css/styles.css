@@ -1,5 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,700;1,400&display=swap");
+/* ::selection {
+    background: #028a0f;
+    color: #fff;
+}
+::-moz-selection {
+    background: #028a0f;
+    color: #fff;
+} */
 body {
-    font-family: "Roboto", sans-serif;
+    font-family: "Kanit", sans-serif;
     background-color: #fff;
     /*position: relative;*/
 }
@@ -12,6 +21,41 @@ ul {
     color: #fff;
 }
 
+img.custom-logo {
+    max-height: 85px;
+    width: auto;
+}
+
+#menu-menu-principal a.nav-link {
+    font-weight: bold;
+    font-size: 18px;
+    padding: 15px 18px;
+    color: #242424;
+}
+/*nuevo*/
+.top-sideinfo-wrap {
+    font-size: 14px;
+}
+.top-sideinfo-wrap a:hover {
+    color: #242424;
+}
+.top-separator {
+    border-left: solid 2px #fff;
+}
+.blue-bg {
+    background: #396588;
+    color: #fff;
+}
+.top-sideinfo-wrap {
+    font-size: 14px;
+}
+.top-menu-wrap {
+    padding-bottom: 3px;
+    padding-top: 2px;
+    border-bottom: solid 1px rgb(0 0 0 / 20%);
+    background-color: #fff;
+}
+/*nuevo*/
 .secundario {
     background: url(/images/banner.png) no-repeat center center;
     -webkit-background-size: cover;
@@ -117,7 +161,7 @@ a.nav-link:hover {
 input,
 select,
 textarea {
-    background-color: #e9e9e9 !important;
+    background-color: #fff !important;
 }
 .btn-primary {
     color: #fff;
