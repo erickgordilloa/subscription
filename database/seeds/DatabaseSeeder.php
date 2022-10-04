@@ -57,7 +57,8 @@ class DatabaseSeeder extends Seeder {
 				'nombre' => 'subscription '.$i,
 				'detalle' => 'subscriptions '.$i,
 				'monto' => range(100,150)[$i],
-				'imagen' => 'https://paqucafe.com/wp-content/uploads/2021/08/CAJA-DOBLE.jpg'
+				//'imagen' => 'https://paqucafe.com/wp-content/uploads/2021/08/CAJA-DOBLE.jpg'
+				'imagen' => 'storage/files/uGMloDpGaNSXXhNENNeZZqPSgkDShoJXKso64HUM.webp'
 			]);
 		}
 	}

@@ -15,13 +15,11 @@ class SubscriptionsController extends Controller
 	}
 
 	public function index() {
-
 		return view('subscriptions');
 	}
 
 	public function data() {
 		$results = Subscription::all();
-
 		return view('subscriptions.tabla', compact('results'));
 	}
 
@@ -29,38 +27,28 @@ class SubscriptionsController extends Controller
 	{
 		//return $request;
 		try {
+			$file = $request->file('file');
+			$file_name = '';
+			if (!empty($file)) {
+				//$file_name = $file->storeAs('public/files/'.$request->subscription_id, $request->nombre.'.'.$file->extension());
+				$file_name = $file->store('public/files');
+				$file_name = Str::replaceArray('public', ['storage'], trim($file_name));
+			}
 			if (empty($request->id)) {
 				$subscription = new Subscription;
 				$subscription->nombre =  $request->nombre;
 				$subscription->detalle =  $request->detalle;
 				$subscription->monto =  $request->monto;
-				$subscription->es_editable =  $request->es_editable;
-				$subscription->estado =  $request->estado;
-				$subscription->texto =  $request->texto;
+				$subscription->imagen = $file_name;
 				$subscription->save();
-
-				$adjuntos = $request->file('archivo');
-				if (!empty($adjuntos)) {
-					foreach ($adjuntos as $file) {
-						$file->store('adjuntos');
-						$archivo =  new SubscriptionFiles;
-						$archivo->subscription_id = $subscription->id;
-						$archivo->archivo = $adjuntos;
-						$archivo->save();
-					}
-				}
 				return response()->json(['msg' => 'success', 'data' => 'Se ha creado correctamente el Tipo ' . $request->nombre]);
 			}else{
 				$subscription = Subscription::find($request->id);
 				$subscription->nombre =  $request->nombre;
 				$subscription->detalle =  $request->detalle;
 				$subscription->monto =  $request->monto;
-				$subscription->es_editable =  $request->es_editable;
-				$subscription->estado =  $request->estado;
-				$subscription->texto =  $request->texto;
+				$subscription->imagen = !empty($file_name) ? $file_name : $subscription->imagen;
 				$subscription->save();
-
-				
 				return response()->json(['msg' => 'success', 'data' => 'Se ha actualizado correctamente el Tipo ' . $request->nombre]);
 			}
 		} catch (Exception $e) {
@@ -90,6 +78,11 @@ class SubscriptionsController extends Controller
 		$eliminar = SubscriptionFiles::find($request->id)->delete();
 
 		return response()->json(['msg' => 'success', 'data' => 'Se ha guardado correctamente el archivo ']);
+	}
+	
+	public function delete($id){
+		$eliminar = Subscription::find($id)->delete();
+		return response()->json(['msg' => 'success', 'data' => 'Se ha eliminado correctamente el archivo ']);
 	}
 	
 }

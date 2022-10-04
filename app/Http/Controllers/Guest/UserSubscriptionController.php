@@ -15,10 +15,13 @@ class UserSubscriptionController extends Controller
 
     public function suscribir(Request $request){
         try{
+            $total_payment = TypeSubscription::find($request->type_subscription_id);
             $userSubscription = new UserSubscription;
             $userSubscription->user_id = auth()->user()->id;
             $userSubscription->subscription_id = $request->subscription_id;
             $userSubscription->type_subscription_id = $request->type_subscription_id;
+            $userSubscription->number_payment = 0;
+            $userSubscription->total_payment = $total_payment->month;
             $userSubscription->save();
             $result = $userSubscription ? ['msg' => 'success', 'data' => 'Se ha suscripto con éxito']: ['msg' => 'error', 'data' => 'Ocurrio un error al actualizar información'];
             return response()->json($result);

@@ -8,14 +8,14 @@ $(document).ready(function () {
 
     $('[data-toggle="popover"]').popover();
 
-    ClassicEditor.create(document.querySelector("#texto"))
+    /* ClassicEditor.create(document.querySelector("#texto"))
         .then((editor) => {
             console.log(editor);
             ck_texto = editor;
         })
         .catch((error) => {
             console.error(error);
-        });
+        }); */
 
     view_table();
 
@@ -98,37 +98,12 @@ $(document).ready(function () {
         if (!$("#formulario").valid()) {
             return false;
         }
-        var editable = "N";
-        var estado = "A";
-        if ($("#si").prop("checked") === true) {
-            editable = "S";
-        }
-
-        if ($("#inactivo").prop("checked") === true) {
-            estado = "I";
-        }
-
-        //var data = new $('#formulario').serialize();
-        //var archivos = document.getElementById("archivos");
-        // var archivo = archivos.files;
         var data = new FormData();
-        /*var files = [];
-        var j = 0;
-        for(i=0; i < $("#cantidad").val(); i++){
-            //debugger;
-            j = j + 1;
-            data.append('archivo_'+j,$('#archivo_'+j)[0].files[0]);
-        }*/
-        //debugger;
-        // data.append('archivo',files); //Añadimos cada archivo a el arreglo con un indice direfente
         data.append("id", $("#id").val());
-        // data.append('cantidad',$("#cantidad").val());
+        data.append("file", $("#file")[0].files[0]);
         data.append("nombre", $("#nombre").val());
         data.append("detalle", $("#detalle").val());
         data.append("monto", $("#monto").val());
-        data.append("es_editable", editable);
-        data.append("estado", estado);
-        data.append("texto", ck_texto.getData());
         data.append("_token", $('meta[name="csrf-token"]').attr("content"));
 
         $("#myModal").modal("toggle");
@@ -202,8 +177,7 @@ $(document).ready(function () {
         "El valor debe ser menor o igual a $2000"
     );
 
-    $("#formulario1").validate({
-        ignore: ["texto"],
+    $("#formulario").validate({
         rules: {
             nombre: { required: true },
             detalle: { required: true },
@@ -253,16 +227,16 @@ $(document).ready(function () {
 
 function eliminar(id, name) {
     $.confirm({
-        title: "¡Eliminar Archivo Adjunto!",
-        content: "¿Desea eliminar el archivo adjunto " + name + "?",
+        title: "¡Eliminar Suscripción!",
+        content: "¿Desea eliminar la suscripción " + name + "?",
         buttons: {
             confirm: {
                 text: "Eliminar",
                 btnClass: "btn-red",
                 action: function () {
                     $.ajax({
-                        type: "POST",
-                        url: "/delete/archivos",
+                        type: "DELETE",
+                        url: "/subscriptions/" + id,
                         data: {
                             _token: $('meta[name="csrf-token"]').attr(
                                 "content"
@@ -280,6 +254,7 @@ function eliminar(id, name) {
                             });
                         },
                         success: function (d) {
+                            view_table();
                             if (d["msg"] == "error") {
                                 toastr.error(d["data"]);
                             } else {
@@ -382,24 +357,12 @@ function abrir(botonimg, id) {
     }
 }
 
-function editar(id, nombre, detalle, monto, estado, es_editable) {
+function editar(id, nombre, detalle, monto) {
     $("#myModal").modal("toggle");
     $("#id").val(id);
     $("#nombre").val(nombre);
     $("#detalle").val(detalle);
     $("#monto").val(monto);
-    var texto = $("#texto_editable_" + id).val();
-    ck_texto.setData(texto);
-    if (estado == "A") {
-        $("#activo").prop("checked", true);
-    } else {
-        $("#inactivo").prop("checked", true);
-    }
-    if (es_editable == "S") {
-        $("#si").prop("checked", true);
-    } else {
-        $("#no").prop("checked", true);
-    }
 }
 
 function view_table() {

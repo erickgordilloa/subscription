@@ -82,49 +82,30 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="detalle" class="col-form-label">Detalle</label>
-                                <input type="text" id="detalle" name="detalle" class="form-control">
-                                <label tipo="error" id="detalle-error"></label>
+                              <label for="monto" class="col-form-label">Monto</label>
+                              <input type="monto" id="monto" name="monto" class="form-control">
+                              <label tipo="error" id="monto-error"></label>                      
                             </div>
                         </div>
+                        
                     </div>
 
                     <div class="row">
+                        
                         <div class="col">
-                              <div class="form-group">
-                                <label for="monto" class="col-form-label">Monto</label>
-                                <input type="monto" id="monto" name="monto" class="form-control">
-                                <label tipo="error" id="monto-error"></label>                      
-                              </div>
+                            <div class="form-group">
+                                <label for="detalle" class="col-form-label">Detalle</label>
+                                <textarea rows="5" maxlength="250" id="detalle" name="detalle" class="form-control"></textarea>
+                                <label tipo="error" id="detalle-error"></label>
+                            </div>
                         </div>
                         <div class="col">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="estado" class="col-form-label">Monto Editable</label> <br>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                          <input type="radio" id="si" name="es_editable" value="S" class="custom-control-input">
-                                          <label class="custom-control-label" for="si">SI</label>
-                                        </div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                          <input type="radio" id="no" name="es_editable" value="N" class="custom-control-input" checked>
-                                          <label class="custom-control-label" for="no">NO</label>
-                                        </div>
-                                        <label tipo="error" id="es_editable-error"></label>                     
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="estado" class="col-form-label">Estado</label> <br>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                          <input type="radio" id="activo" name="estado" value="A" class="custom-control-input">
-                                          <label class="custom-control-label" for="activo">Activo</label>
-                                        </div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                          <input type="radio" id="inactivo" name="estado" value="I" class="custom-control-input">
-                                          <label class="custom-control-label" for="inactivo">Inactivo</label>
-                                        </div>
-                                        <label tipo="error" id="estado-error"></label>
+                                      <label for="file" class="col-form-label">Foto</label>
+                                      <input type="file" id="file" name="file" class="form-control">
+                                      <label tipo="error" id="file-error"></label>                      
                                     </div>
                                 </div>
                             </div>
@@ -132,14 +113,14 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col">
                             <div class="form-group">
                               <label for="texto" class="col-form-label">Texto Adjunto</label>
                               <textarea id="texto" name="texto" rows="7"></textarea>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     {{--<div class="row">
                                                                 <div class="col">
@@ -163,52 +144,6 @@
     </div>
 </div>
 
-
-<div class="modal fade modal-archivo" tabindex="-1" id="myModalfile" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Archivos</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <form id="formulario" class="form-horizontal">
-                {{ csrf_field() }}
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="file_name" class="col-form-label">Nombre</label>
-                                <input type="hidden" name="subscription_id" id="subscription_id">
-                                <input type="text" id="file_name" name="file_name" class="form-control">
-                                <label tipo="error" id="file_name-error"></label>
-                            </div>
-                        </div>
-                    </div>
-
-                   
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="archivo" class="col-form-label">Archivo</label>
-                                <input type="file" id="archivo" name="archivo" class="form-control">
-                                <label tipo="error" id="archivo-error"></label>
-                            </div>
-                        </div>
-                    </div>
-
-                                      
-                        
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="limpiar()">Cerrar</button>
-                    <button type="button" class="btn btn-primary"  data-dismiss="modal" id="btn_guardar_archivo">Guardar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 @stop
 
 

@@ -17,9 +17,9 @@ class CreateSubscriptionsTable extends Migration {
 			$table->string('detalle', 300)->nullable();
 			$table->double('monto', 10, 4)->nullable();
 			$table->text('imagen')->nullable();
-			$table->char('estado', 1)->default('A');
-			$table->char('es_editable',1)->nullable();
-			$table->text('texto')->nullable();
+			//$table->char('estado', 1)->default('A');
+			//$table->char('es_editable',1)->nullable();
+			//$table->text('texto')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

@@ -178,7 +178,7 @@
                             </a>
                         </li>
                         <li >
-                            <a href="{{ route('register') }}" class="{{ Route::is('register') ? 'active' : '' }}">
+                            <a href="{{ route('usuarios') }}" class="{{ Route::is('usuarios') ? 'active' : '' }}">
                                 <i class="metismenu-icon pe-7s-lock"></i>
                                 Usuarios
                             </a>

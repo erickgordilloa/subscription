@@ -36,9 +36,9 @@ class RegisterController extends Controller {
 	 *
 	 * @return void
 	 */
-	public function __construct() {
+	/* public function __construct() {
 		$this->middleware('auth');
-	}
+	} */
 	/**
 	 * Get a validator for an incoming registration request.
 	 *
@@ -73,6 +73,7 @@ class RegisterController extends Controller {
 				$user = new User;
 				$user->name =  $request->name;
 				$user->email =  $request->email;
+				$user->role_id = 1;
 				$user->password =  Hash::make($request->password);
 				$user->save();
 				return response()->json(['msg' => 'success', 'data' => 'Se ha creado correctamente el usuario ' . $request->name]);
@@ -97,12 +98,11 @@ class RegisterController extends Controller {
 	}
 
 	public function index() {
-
 		return view('usuarios');
 	}
 
 	public function data() {
-		$results = User::where('status','A')->get();
+		$results = User::where('status','A')->where('role_id',1)->get();
 		return view('usuarios.tabla', compact('results'));
 	}
 }

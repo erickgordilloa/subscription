@@ -19,8 +19,7 @@ class TransactionsController extends Controller {
 
 	public function index() {
 		$estados = Transaction::select('status')->distinct()->get();
-		$subscriptions = Subscription::where('estado','A')->get();
-		//return $estados;
+		$subscriptions = Subscription::get();
 		return view('transacciones',compact('estados','subscriptions'));
 	}
 

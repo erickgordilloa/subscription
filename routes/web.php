@@ -31,6 +31,10 @@ Route::get('pagos', 'Guest\UserSubscriptionController@pagos')->name('pagos.index
 Route::post('pagos/data', 'Guest\UserSubscriptionController@pagosData')->name('pagos.data')->middleware(['checkRole:Suscriptor']);
 Route::get('perfil', 'Guest\PerfilController@index')->name('perfil.index')->middleware(['checkRole:Suscriptor']);
 
+Route::get('/imagen/{name}',function($name){
+	$fileContent = Storage::disk('public')->get("files/$name");
+	return Response::make($fileContent, '200');
+})->name('imagen');
 
 Route::get('/terminos-y-condiciones', function () {
 	return view('web.terminos');
@@ -60,10 +64,12 @@ Route::post('/subscriptions', 'SubscriptionsController@create')->name('subscript
 Route::post('/subscriptions/archivos', 'SubscriptionsController@archivos')->name('subscriptions.post');
 Route::post('/post/archivos', 'SubscriptionsController@files')->name('archivos.post');
 Route::post('/delete/archivos', 'SubscriptionsController@deleteFile')->name('archivos.delete');
+Route::delete('subscriptions/{id}', 'SubscriptionsController@delete')->name('subscriptions.delete');
+
 
 #usuarios
-Route::get('/register', 'Auth\RegisterController@index')->name('register');
-Route::post('/data/usuarios', 'Auth\RegisterController@data')->name('usuarios');
+Route::get('/usuarios', 'Auth\RegisterController@index')->name('usuarios');
+Route::post('/data/usuarios', 'Auth\RegisterController@data')->name('usuarios.data');
 Route::post('/delete/usuarios', 'Auth\RegisterController@delete')->name('usuarios.delete');
 
 
