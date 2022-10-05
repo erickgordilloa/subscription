@@ -12,27 +12,16 @@
     <tbody>
     @foreach($results as $rst)
         <tr>
-            <td>{{$rst->persona->nombre}} {{$rst->persona->apellido}}
-                </br>
-                <b>
-                @if($rst->persona->tipo_identidad =="1")
-                    Cédula:
-                @elseif($rst->persona->tipo_identidad=="2")
-                        Ruc:
-                @elseif($rst->persona->tipo_identidad=="3")
-                      Pasaporte:
-                @endif
-                </b>
-                {{$rst->persona->identidad}}<br>
-                <b>Correo: </b>{{ $rst->persona->correo }}
+            <td>{{$rst->user->name}}<br>
+                <b>Correo: </b>{{ $rst->user->email }}
             </td>
             <td>
                 <b>Código de Autorización: </b>{{$rst->authorization_code}}<br>
                 <b>Id de la transacción: </b>{{$rst->id_response}} <br>
                 @if ($rst->status == "success")
-                    <b>Referencia: </b><a href="#" onclick="reference({{ $rst->id }},{{ $rst->tipo->id }})" data-toggle="modal" data-target=".modal-reference" >{{$rst->tipo->nombre}}  <i class="fas fa-edit"></i></a><br>
+                    <b>Referencia: </b><a href="#" onclick="reference({{ $rst->id }},{{ $rst->subscription->id }})" data-toggle="modal" data-target=".modal-reference" >{{$rst->subscription->nombre}}  <i class="fas fa-edit"></i></a><br>
                 @else
-                    <b>Referencia: </b>{{$rst->tipo->nombre}}<br>
+                    <b>Referencia: </b>{{$rst->subscription->nombre}}<br>
                 @endif
 
                 <b>Fecha de transacción: </b>{{$rst->payment_date}} <br>
@@ -62,8 +51,8 @@
             </td>
             <td>
                 @if($rst->status =="success" and empty($rst->refund))
-                 <button onclick="refund('{{ $rst->id_response }}','{{ $rst->tipo->nombre }}')" title="Reembolsar" type="button" class="btn btn-success btn-sm"><i class="fas fa-undo"></i> Reembolsar</button><br><br>
-                 <button onclick="resend('{{ $rst->id }}','{{ $rst->tipo->nombre }}')" title="Reenviar" type="button" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Reenviar Correo</button>
+                 <button onclick="refund('{{ $rst->id_response }}','{{ $rst->subscription->nombre }}')" title="Reembolsar" type="button" class="btn btn-success btn-sm"><i class="fas fa-undo"></i> Reembolsar</button><br><br>
+                 <button onclick="resend('{{ $rst->id }}','{{ $rst->subscription->nombre }}')" title="Reenviar" type="button" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Reenviar Correo</button>
                 @endif
             </td>
         </tr>

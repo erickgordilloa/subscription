@@ -48,6 +48,8 @@ Route::post('donacion', 'DonacionesController@donacion')->name('donacion');
 Route::get('/home', 'HomeController@index')->name('home')->middleware(['checkRole:Administrador']);
 Route::post('/data/personas', 'HomeController@data')->name('personas');
 Route::post('/post/personas', 'HomeController@post')->name('personas.post');
+Route::post('/cobrar', 'HomeController@cobrarUser')->name('personas.cobrar');
+//Route::post('/cobrar', 'HomeController@post')->name('personas.post');
 
 #transacciones
 Route::get('/transaction', 'TransactionsController@index')->name('transaction');

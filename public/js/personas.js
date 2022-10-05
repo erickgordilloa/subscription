@@ -1,8 +1,8 @@
 $(document).ready(function () {
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
     });
 
     view_table();
@@ -11,52 +11,60 @@ $(document).ready(function () {
         /*if (!$("#formulario").valid()) {
             return false;
         }*/
-        var data = new $('#formulario').serialize();
-        $('#myModal').modal('toggle');
+        var data = new $("#formulario").serialize();
+        $("#myModal").modal("toggle");
         $.ajax({
-            type: 'POST',
-            url: '/post/personas',
+            type: "POST",
+            url: "/post/personas",
             data: data,
             beforeSend: function () {
                 Swal.fire({
-                    title: '¡Espere, Por favor!',
-                    html: 'Cargando informacion...',
+                    title: "¡Espere, Por favor!",
+                    html: "Cargando informacion...",
                     allowOutsideClick: false,
                     onBeforeOpen: () => {
-                        Swal.showLoading()
-                    }
+                        Swal.showLoading();
+                    },
                 });
             },
             success: function (data) {
-              //  $('#formregisterdiv').html(data);
-                    swal.close();
+                //  $('#formregisterdiv').html(data);
+                swal.close();
                 var d = JSON.parse(data);
                 //$('#div_mensajes').removeClass('d-none text-center')
-                if (d['msg'] == 'error') {
-                    toastr.error(d['data']);
+                if (d["msg"] == "error") {
+                    toastr.error(d["data"]);
                 } else {
-                    toastr.success(d['data']);
-                    view_table()
+                    toastr.success(d["data"]);
+                    view_table();
                     limpiar();
                 }
             },
-            error: function (xhr) { // if error occured
-                toastr.error('Error: '+xhr.statusText + xhr.responseText);
+            error: function (xhr) {
+                // if error occured
+                toastr.error("Error: " + xhr.statusText + xhr.responseText);
             },
             complete: function () {
-               swal.close();
+                swal.close();
             },
-            dataType: 'html'
+            dataType: "html",
         });
-    })
-
-
+    });
 });
 
-function limpiar(){
+function limpiar() {
     $("#formulario")[0].reset();
 }
-function editar(id,tipo,identidad,nombre,apellido,correo,direccion,telefono){
+function editar(
+    id,
+    tipo,
+    identidad,
+    nombre,
+    apellido,
+    correo,
+    direccion,
+    telefono
+) {
     $("#id").val(id);
     $("#tipo").val(tipo);
     $("#identidad").val(identidad);
@@ -65,163 +73,208 @@ function editar(id,tipo,identidad,nombre,apellido,correo,direccion,telefono){
     $("#correo").val(correo);
     $("#direccion").val(direccion);
     $("#celular").val(telefono);
-    $('#myModal').modal('toggle');
+    $("#myModal").modal("toggle");
 }
 
 function view_table() {
-
     $.ajax({
-        type: 'POST',
-        url: '/data/personas',
+        type: "POST",
+        url: "/data/personas",
         data: {
-            "_token": $('meta[name="csrf-token"]').attr('content')
+            _token: $('meta[name="csrf-token"]').attr("content"),
         },
         beforeSend: function () {
-             Swal.fire({
-	                title: '¡Espere, Por favor!',
-	                html: 'Cargando informacion...',
-	                allowOutsideClick: false,
-	                onBeforeOpen: () => {
-	                    Swal.showLoading()
-	                }
-	            });  
+            Swal.fire({
+                title: "¡Espere, Por favor!",
+                html: "Cargando informacion...",
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                },
+            });
         },
         success: function (data) {
-            $('#div_table').html(data);
-            $('#tbl_personas').DataTable({
-                "language": {
-                    "sProcessing": "Procesando...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "sZeroRecords": "No se encontraron resultados",
-                    "sEmptyTable": "Ningún dato disponible en esta tabla =(",
-                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sSearch": "Buscar:",
-                    "sUrl": "",
-                    "sInfoThousands": ",",
-                    "sLoadingRecords": "Cargando...",
-                    "oPaginate": {
-                        "sFirst": "Primero",
-                        "sLast": "Último",
-                        "sNext": "Siguiente",
-                        "sPrevious": "Anterior"
+            $("#div_table").html(data);
+            $("#tbl_personas").DataTable({
+                language: {
+                    sProcessing: "Procesando...",
+                    sLengthMenu: "Mostrar _MENU_ registros",
+                    sZeroRecords: "No se encontraron resultados",
+                    sEmptyTable: "Ningún dato disponible en esta tabla =(",
+                    sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    sInfoEmpty:
+                        "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+                    sInfoPostFix: "",
+                    sSearch: "Buscar:",
+                    sUrl: "",
+                    sInfoThousands: ",",
+                    sLoadingRecords: "Cargando...",
+                    oPaginate: {
+                        sFirst: "Primero",
+                        sLast: "Último",
+                        sNext: "Siguiente",
+                        sPrevious: "Anterior",
                     },
-                    "oAria": {
-                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    oAria: {
+                        sSortAscending:
+                            ": Activar para ordenar la columna de manera ascendente",
+                        sSortDescending:
+                            ": Activar para ordenar la columna de manera descendente",
                     },
-                    "buttons": {
-                        "copy": "Copiar",
-                        "colvis": "Visibilidad"
-                    }
+                    buttons: {
+                        copy: "Copiar",
+                        colvis: "Visibilidad",
+                    },
                 },
-                "paging": true,
-                "lengthChange": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "order": [[0, "desc"]]
+                paging: true,
+                lengthChange: true,
+                ordering: true,
+                info: true,
+                autoWidth: false,
+                order: [[0, "desc"]],
             });
             // acciones();
         },
-        error: function (xhr) { // if error occured
-            toastr.error('Error: ' + xhr.statusText + xhr.responseText);
+        error: function (xhr) {
+            // if error occured
+            toastr.error("Error: " + xhr.statusText + xhr.responseText);
         },
         complete: function () {
-             	swal.close()
+            swal.close();
         },
-        dataType: 'html'
+        dataType: "html",
+    });
+}
+function cobrar(id, name) {
+    Swal.fire({
+        title: "¡Cobrar!",
+        text: "¿Desea Cobrar la suscripción al usuario a " + name + "?",
+        icon: "info",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Confirmar",
+        cancelButtonText: "Cancelar",
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "POST",
+                url: "/cobrar",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr("content"),
+                    id: id,
+                },
+                beforeSend: function () {
+                    Swal.fire({
+                        title: "¡Espere, Por favor!",
+                        html: "Cargando informacion...",
+                        allowOutsideClick: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading();
+                        },
+                    });
+                },
+                success: function (d) {
+                    Swal.close();
+                    view_table();
+                    if (d["msg"] == "success") {
+                        Swal.fire("¡Cobrar!", d["data"], "success");
+                    } else {
+                        Swal.fire("¡Oops!", d["data"], "error");
+                    }
+                },
+                error: function (xhr) {
+                    Swal.close();
+                    toastr.error("Error: " + xhr.statusText + xhr.responseText);
+                },
+            });
+        } else if (result.isDenied) {
+            Swal.fire("Changes are not saved", "", "info");
+        }
     });
 }
 
-
-
 $(function () {
-
-
-
-    $('#busqueda').click(function (e) {
-
+    $("#busqueda").click(function (e) {
         e.preventDefault();
-        var drp = $('#reportrange').data('daterangepicker');
+        var drp = $("#reportrange").data("daterangepicker");
         //debugger;
-        var fecha_ini = drp.startDate.format('YYYY-MM-DD');
-        var fecha_fin = drp.endDate.format('YYYY-MM-DD');
+        var fecha_ini = drp.startDate.format("YYYY-MM-DD");
+        var fecha_fin = drp.endDate.format("YYYY-MM-DD");
 
         $.ajax({
-            type: 'POST',
-            url: '/view_data_citas',
+            type: "POST",
+            url: "/view_data_citas",
             data: {
                 fecha_ini: fecha_ini,
                 fecha_fin: fecha_fin,
-                estado: $('#estado').val(),
-                cita: $('#cita').val(),
-                "_token": $('meta[name="csrf-token"]').attr('content')
+                estado: $("#estado").val(),
+                cita: $("#cita").val(),
+                _token: $('meta[name="csrf-token"]').attr("content"),
             },
             beforeSend: function () {
-                 Swal.fire({
-                    title: '¡Espere, Por favor!',
-                    html: 'Cargando informacion...',
+                Swal.fire({
+                    title: "¡Espere, Por favor!",
+                    html: "Cargando informacion...",
                     allowOutsideClick: false,
                     onBeforeOpen: () => {
-                        Swal.showLoading()
-                    }
-                });  
+                        Swal.showLoading();
+                    },
+                });
             },
             success: function (data) {
-                $('#tbl_personas').html(data);
-                $('#tbl_citas').DataTable({
-                    "language": {
-                        "sProcessing": "Procesando...",
-                        "sLengthMenu": "Mostrar _MENU_ registros",
-                        "sZeroRecords": "No se encontraron resultados",
-                        "sEmptyTable": "Ningún dato disponible en esta tabla =(",
-                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                        "sInfoPostFix": "",
-                        "sSearch": "Buscar:",
-                        "sUrl": "",
-                        "sInfoThousands": ",",
-                        "sLoadingRecords": "Cargando...",
-                        "oPaginate": {
-                            "sFirst": "Primero",
-                            "sLast": "Último",
-                            "sNext": "Siguiente",
-                            "sPrevious": "Anterior"
+                $("#tbl_personas").html(data);
+                $("#tbl_citas").DataTable({
+                    language: {
+                        sProcessing: "Procesando...",
+                        sLengthMenu: "Mostrar _MENU_ registros",
+                        sZeroRecords: "No se encontraron resultados",
+                        sEmptyTable: "Ningún dato disponible en esta tabla =(",
+                        sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        sInfoEmpty:
+                            "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        sInfoFiltered:
+                            "(filtrado de un total de _MAX_ registros)",
+                        sInfoPostFix: "",
+                        sSearch: "Buscar:",
+                        sUrl: "",
+                        sInfoThousands: ",",
+                        sLoadingRecords: "Cargando...",
+                        oPaginate: {
+                            sFirst: "Primero",
+                            sLast: "Último",
+                            sNext: "Siguiente",
+                            sPrevious: "Anterior",
                         },
-                        "oAria": {
-                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        oAria: {
+                            sSortAscending:
+                                ": Activar para ordenar la columna de manera ascendente",
+                            sSortDescending:
+                                ": Activar para ordenar la columna de manera descendente",
                         },
-                        "buttons": {
-                            "copy": "Copiar",
-                            "colvis": "Visibilidad"
-                        }
+                        buttons: {
+                            copy: "Copiar",
+                            colvis: "Visibilidad",
+                        },
                     },
-                    "paging": true,
-                    "lengthChange": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "order": [[0, "desc"]]
+                    paging: true,
+                    lengthChange: true,
+                    ordering: true,
+                    info: true,
+                    autoWidth: false,
+                    order: [[0, "desc"]],
                 });
                 // acciones();
             },
-            error: function (xhr) { // if error occured
-                toastr.error('Error: ' + xhr.statusText + xhr.responseText);
+            error: function (xhr) {
+                // if error occured
+                toastr.error("Error: " + xhr.statusText + xhr.responseText);
             },
             complete: function () {
-                    swal.close()
+                swal.close();
             },
-            dataType: 'html'
+            dataType: "html",
         });
     });
-
 });
-
-
-
-

@@ -2,35 +2,28 @@
     <thead>
     <tr>
         <th>Datos Personales</th>
-        <th>Correo</th>
-        <th>Dirección</th>
-        <th>Celular</th>
+        <th>suscripción</th>
+        <th>Tiempo</th>
+        <th>Opciones</th>
     </tr>
     </thead>
     <tbody>
     @foreach($results as $rst)
         <tr>
-            <td><a href="#"  data-toggle="modal" data-target=".modal-example" onclick="editar({{ $rst->id }},{{ $rst->tipo_identidad }},'{{ $rst->identidad }}','{{$rst->nombre}}','{{$rst->apellido}}','{{$rst->correo}}','{{$rst->direccion}}','{{$rst->celular}}')">{{$rst->nombre}} {{$rst->apellido}} <i class="fas fa-edit"></i></a>
-                </br>
-                <b>
-                @if($rst->tipo_identidad =="1")
-                    Cédula:
-                @elseif($rst->tipo_identidad=="2")
-                        Ruc:
-                @elseif($rst->tipo_identidad=="3")
-                      Pasaporte:
-                @endif
-                </b>
-                {{$rst->identidad}}
+            <td>
+                {{$rst->user->name}}<br/>
+                {{$rst->user->email}}
             </td>
             <td>
-                {{$rst->correo}}
+                {{$rst->subscription->nombre}}
             </td>
             <td>
-                {{$rst->direccion}}
+                {{$rst->typeSubscription->name}}<br/>
+                <b># suscripciones</b>: {{$rst->total_payment ?? 0}}<br/>
+                <b># suscripciones pagadas</b>: {{$rst->number_payment ?? 0}}
             </td>
             <td>
-                {{$rst->celular}}
+                <button onclick="cobrar({{$rst->id}},'{{$rst->user->name}}')" data-id="{{$rst->id}}" data-name="{{$rst->nombre}}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-credit-card" aria-hidden="true"></i> Cobrar</button>
             </td>
         </tr>
     @endforeach

@@ -18,7 +18,7 @@
             </i>
         </div>
         <div>Administración
-            <div class="page-title-subheading">Listado de Personas
+            <div class="page-title-subheading">Listado de Suscriptores
             </div>
 
         </div>

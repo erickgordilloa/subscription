@@ -188,13 +188,12 @@ class TransaccionesController extends Controller
     	try {
 			
 			$datos = [
-				'id'=>'uid1234',
+				'id'=>'2',
 				'email'=>'jhon@doe.com',
 				'amount'=>50,
 				'description'=>'test',
 				'dev_reference'=>'test-11',
-				'vat'=>0,
-				'cardToken'=>'11461048777767658426'
+				'cardToken'=>'599129338774818021'
 			];
 			$response = $this->debitToken($datos);
 
@@ -245,7 +244,7 @@ class TransaccionesController extends Controller
 					'amount'=>$datos['amount'],
 					'description'=>$datos['description'],
 					'dev_reference'=>$datos['dev_reference'],
-					'vat'=>$datos['vat'],
+					'vat'=> 0,
 					'tax_percentage'=> 0
 				],
 				'card'=>[

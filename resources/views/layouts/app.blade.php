@@ -162,7 +162,7 @@
                         <li >
                             <a href="{{ route('home')}}" class="{{ Route::is('home') ? 'active' : '' }}">
                                 <i class="metismenu-icon pe-7s-users"></i>
-                                Personas
+                                Suscriptores
                             </a>
                         </li>
                         <li >
