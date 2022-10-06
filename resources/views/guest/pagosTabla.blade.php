@@ -25,9 +25,9 @@
                 <b>Código de Autorización: </b>{{$rst->authorization_code}}<br>
                 <b>Id de la transacción: </b>{{$rst->id_response}} <br>
                 @if ($rst->status == "success")
-                    <b>Referencia: </b><a href="#" onclick="reference({{ $rst->id }},{{ $rst->tipo->id }})" data-toggle="modal" data-target=".modal-reference" >{{$rst->tipo->nombre}}  <i class="fas fa-edit"></i></a><br>
+                    <b>Referencia: </b><a href="#" onclick="reference({{ $rst->id }},{{ $rst->subscription->id }})" data-toggle="modal" data-target=".modal-reference" >{{$rst->subscription->nombre}}  <i class="fas fa-edit"></i></a><br>
                 @else
-                    <b>Referencia: </b>{{$rst->tipo->nombre}}<br>
+                    <b>Referencia: </b>{{$rst->subscription->nombre}}<br>
                 @endif
 
                 <b>Fecha de transacción: </b>{{$rst->payment_date}} <br>
