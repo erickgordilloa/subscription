@@ -30,10 +30,10 @@
             <input type="hidden" name="final" id="final">
             <input type="hidden" name="estado_export" id="estado_export">
         </form>
-        <button title="Guardar" data-placement="bottom" 
+        {{-- <button title="Guardar" data-placement="bottom" 
                 class="btn-shadow mr-3 btn btn-primary "  onclick="event.preventDefault(); document.getElementById('export-form').submit();">
             <i class="fa fa-file-excel-o"></i> Exportar 
-        </button>
+        </button> --}}
     </div>
 @endsection
 

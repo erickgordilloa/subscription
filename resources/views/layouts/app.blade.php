@@ -183,12 +183,12 @@
                                 Usuarios
                             </a>
                         </li>
-                        <li >
+                        {{-- <li >
                             <a href="{{ route('settings') }}" class="{{ Route::is('settings') ? 'active' : '' }}">
                                 <i class="metismenu-icon pe-7s-tools"></i>
                                 Configuración
                             </a>
-                        </li>
+                        </li> --}}
 
 
 
