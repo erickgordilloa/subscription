@@ -128,10 +128,10 @@
                     </div>
                     <div class="col-xs-6 text-center">
                         <ul class="nav-principal">
-                        <li><a class="text" href="https://www.facebook.com/iglesia.samborondon/" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
-                        <li><a class="text" href="https://www.instagram.com/alianzasamborondon_ias/"  target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                        <li><a class="text" href="https://twitter.com/AlianzaSamboron"  target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                        <li><a class="text" href="https://www.youtube.com/user/AlianzaSamborondon1"  target="_blank"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                        <li><a class="text" href="https://www.facebook.com/paqucafe.ec/" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
+                        <li><a class="text" href="https://www.instagram.com/paqucafe.ec/"  target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        <li><a class="text" href="https://open.spotify.com/user/73aocckfq2kar10k39niuvfzo?si=Xmr1CJU3Te6Cp9oXnVXTcA&nd=1"  target="_blank"><i class="fa fa-spotify" aria-hidden="true"></i></a></li>
+                        <li><a class="text" href="https://www.youtube.com/channel/UCdGmLB4qpvaVJ7UISO__2ow"  target="_blank"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
                     </ul>
                     </div>
                 </div>

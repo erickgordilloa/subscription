@@ -23,6 +23,8 @@ class UserSubscriptionController extends Controller
             $userSubscription->type_subscription_id = $request->type_subscription_id;
             $userSubscription->number_payment = 0;
             $userSubscription->total_payment = $total_payment->month;
+            $userSubscription->brand_id = $request->brand_id;
+            $userSubscription->type_id = $request->type_id;
             $userSubscription->save();
             $result = $userSubscription ? ['msg' => 'success', 'data' => 'Se ha suscripto con éxito']: ['msg' => 'error', 'data' => 'Ocurrio un error al actualizar información'];
             return response()->json($result);

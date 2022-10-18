@@ -67,7 +67,29 @@ class RegisterController extends Controller {
 		]);
 	}
 
-	public function register(Request $request) {
+	/* public function register(Request $request) {
+		try {
+			if (empty($request->id)) {
+				$user = new User;
+				$user->name =  $request->name;
+				$user->email =  $request->email;
+				$user->role_id = 2;
+				$user->password =  Hash::make($request->password);
+				$user->save();
+				return response()->json(['msg' => 'success', 'data' => 'Se ha creado correctamente el usuario ' . $request->name]);
+			}else{
+				$user = User::find($request->id);
+				$user->name =  $request->name_edit;
+				$user->email =  $request->email_edit;
+				$user->save();
+				return response()->json(['msg' => 'success', 'data' => 'Se ha actualizado correctamente el usuario ' . $request->name_edit]);
+			}
+		} catch (Exception $e) {
+			return response()->json(['msg' => 'error', 'data' => $e->getMessage()]);
+		}
+	} */
+	
+	public function registerAdmin(Request $request) {
 		try {
 			if (empty($request->id)) {
 				$user = new User;

@@ -22,16 +22,45 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{$rst->nombre}}</h5>
                                     <p class="card-text">{{$rst->detalle}}.</p>
-                                    <select name="month" id="month_{{$rst->id}}" class="form-control">
-                                        @foreach ($typeSubscriptions as $typeSubscription)
-                                            <option value="{{$typeSubscription->id}}">{{$typeSubscription->name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="form-group row">
+                                        <label for="brand{{$rst->id}}" class="col-sm-5 col-form-label">Marca de Café</label>
+                                        <div class="col-sm-7">
+                                            <select name="brand" id="brand_{{$rst->id}}" class="form-control">
+                                                @foreach ($brands as $brand)
+                                                    <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                      </div>
+
+                                   
+                                      <div class="form-group row">
+                                        <label for="type_{{$rst->id}}" class="col-sm-5 col-form-label">Tipo de Grano</label>
+                                        <div class="col-sm-7">
+                                            <select name="type" id="type_{{$rst->id}}" class="form-control">
+                                                @foreach ($types as $type)
+                                                    <option value="{{$type->id}}">{{$type->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group row">
+                                        <label for="month_{{$rst->id}}" class="col-sm-5 col-form-label">Suscripción</label>
+                                        <div class="col-sm-7">
+                                            <select name="month" id="month_{{$rst->id}}" class="form-control">
+                                                @foreach ($typeSubscriptions as $typeSubscription)
+                                                    <option value="{{$typeSubscription->id}}">{{$typeSubscription->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                      </div>
+
                                     @guest
-                                    <a class="btn btn-primary mt-3" href="{{ route('login') }}">Seleccionar ${{$rst->monto}}</a>
+                                    <a class="btn btn-primary mt-3 btn-block" href="{{ route('login') }}">suscribirse ${{$rst->monto ? number_format($rst->monto, 2, '.', ',') : '0.00'}}</a>
                                     @else
                                     @if (Auth::user()->role->name == 'Suscriptor')
-                                        <button onclick="subscribirse({{$rst->id}},'{{$rst->nombre}}')" class="btn btn-primary mt-3">Seleccionar ${{$rst->monto}}</button>    
+                                        <button onclick="subscribirse({{$rst->id}},'{{$rst->nombre}}')" class="btn btn-primary mt-3 btn-block">suscribirse ${{$rst->monto ? number_format($rst->monto, 2, '.', ',') : '0.00'}}</button>    
                                     @endif
                                     @endguest
                                 </div>

@@ -30,6 +30,9 @@ Route::post('tarjetas', 'Guest\CardController@create')->name('card.create')->mid
 Route::get('pagos', 'Guest\UserSubscriptionController@pagos')->name('pagos.index')->middleware(['checkRole:Suscriptor']);
 Route::post('pagos/data', 'Guest\UserSubscriptionController@pagosData')->name('pagos.data')->middleware(['checkRole:Suscriptor']);
 Route::get('perfil', 'Guest\PerfilController@index')->name('perfil.index')->middleware(['checkRole:Suscriptor']);
+Route::post('perfil', 'Guest\PerfilController@data')->name('perfil.data')->middleware(['checkRole:Suscriptor']);
+Route::post('perfil/direccion', 'Guest\PerfilController@direccion')->name('perfil.direccion')->middleware(['checkRole:Suscriptor']);
+Route::post('perfil/factura', 'Guest\PerfilController@factura')->name('perfil.factura')->middleware(['checkRole:Suscriptor']);
 
 Route::get('/imagen/{name}',function($name){
 	$fileContent = Storage::disk('public')->get("files/$name");
@@ -73,6 +76,7 @@ Route::delete('subscriptions/{id}', 'SubscriptionsController@delete')->name('sub
 Route::get('/usuarios', 'Auth\RegisterController@index')->name('usuarios');
 Route::post('/data/usuarios', 'Auth\RegisterController@data')->name('usuarios.data');
 Route::post('/delete/usuarios', 'Auth\RegisterController@delete')->name('usuarios.delete');
+Route::post('/usuarios', 'Auth\RegisterController@registerAdmin')->name('usuarios.register')->middleware(['checkRole:Administrador']);
 
 
 #usuarios

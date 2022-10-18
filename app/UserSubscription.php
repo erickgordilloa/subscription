@@ -20,4 +20,12 @@ class UserSubscription extends Model
     public function typeSubscription() {
 		return $this->belongsTo(TypeSubscription::class,'type_subscription_id');
 	}
+    
+	public function brand() {
+		return $this->belongsTo(Brand::class);
+	}
+
+	public function type() {
+		return $this->belongsTo(Type::class);
+	}
 }

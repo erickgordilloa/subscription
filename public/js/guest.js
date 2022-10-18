@@ -9,6 +9,8 @@ $(document).ready(function () {
 function subscribirse(id, name) {
     let meses = $("#month_" + id).val();
     let meses_text = $("#month_" + id + " option:selected").text();
+    let brand_id = $("#brand_" + id + " option:selected").val();
+    let type_id = $("#type_" + id + " option:selected").val();
     Swal.fire({
         title: "¡Suscribirse!",
         text: "¿Desea suscribirse a " + name + " por " + meses_text + "?",
@@ -27,6 +29,8 @@ function subscribirse(id, name) {
                     _token: $('meta[name="csrf-token"]').attr("content"),
                     subscription_id: id,
                     type_subscription_id: meses,
+                    brand_id: brand_id,
+                    type_id: type_id,
                 },
                 beforeSend: function () {
                     Swal.fire({

@@ -18,6 +18,8 @@ class CreateUserSubscriptionsTable extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('subscription_id');
             $table->bigInteger('type_subscription_id');
+            $table->bigInteger('brand_id');
+            $table->bigInteger('type_id');
             $table->bigInteger('number_payment');
             $table->bigInteger('total_payment');
             $table->timestamps();

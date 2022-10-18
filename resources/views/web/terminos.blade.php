@@ -1,6 +1,6 @@
 <html>
 @include('web.head')
-	<body>
+	{{-- <body>
 		<div class="container p-4">
 			<div class="border-form p-4" >
 				
@@ -77,5 +77,5 @@ No obstante, el servicio se podrá interrumpir cuando resulte necesario o conven
 			</ol>
 		</div>
 			</div>
-	</body>
+	</body> --}}<h1>Aquí términos y condiciones</h1>
 </html>

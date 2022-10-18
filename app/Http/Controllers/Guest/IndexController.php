@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Guest;
 
 use App\Subscription;
 use App\TypeSubscription;
+use App\Brand;
+use App\Type;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -23,7 +25,9 @@ class IndexController extends Controller
         })->paginate(9);
 
         $typeSubscriptions = TypeSubscription::all();
-        return view('guest.index',compact('suscripciones','typeSubscriptions','search'));
+        $brands = Brand::all();
+        $types = Type::all();
+        return view('guest.index',compact('suscripciones','typeSubscriptions','search','brands','types'));
     }
     
     
