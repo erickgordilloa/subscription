@@ -8,7 +8,7 @@ $(document).ready(function () {
     view_table();
 });
 
-function eliminar(id, name) {
+function eliminar(token, name) {
     Swal.fire({
         title: "¡Eliminar tarjeta!",
         text: "¿Desea cancelar la tarjeta a " + name + "?",
@@ -22,10 +22,11 @@ function eliminar(id, name) {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
             $.ajax({
-                type: "DELETE",
-                url: "/tarejtas/" + id,
+                type: "POST",
+                url: "/tarjetas/delete",
                 data: {
                     _token: $('meta[name="csrf-token"]').attr("content"),
+                    cardToken: token,
                 },
                 beforeSend: function () {
                     Swal.fire({

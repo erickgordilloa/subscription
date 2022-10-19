@@ -19,8 +19,8 @@ class CardController extends Controller
     }
     
     public function data(Request $request){
-        //$results = ServicesData::getCards(auth()->user()->id);
-        $results = Card::where('user_id',auth()->user()->id)->get();
+        $results = ServicesData::getCards(auth()->user()->id);
+        //$results = Card::where('user_id',auth()->user()->id)->get();
         return view('guest.cardTabla', compact('results'));
     }
    
@@ -50,12 +50,14 @@ class CardController extends Controller
         }
     }
 
-    public function delete($id){
-        $card = Card::find($id);
-        ServicesData::deleteCard($card->user_id,$card->token);
-        $card->delete();
-        $result = $card ? ['msg' => 'success', 'data' => 'Tarjeta eliminada con éxito']: ['msg' => 'error', 'data' => 'Ocurrio un error al actualizar información'];
-        return response()->json($result);
+    public function delete(Request $request){
+        $card = Card::where("token",$request->cardToken)->first();
+        if(!empty($card)){
+            $card->delete();
+        }
+        ServicesData::deleteCard($request->cardToken,auth()->user()->id);
+       // $result = $card ? ['msg' => 'success', 'data' => 'Tarjeta eliminada con éxito']: ['msg' => 'error', 'data' => 'Ocurrio un error al actualizar información'];
+        return response()->json(['msg' => 'success', 'data' => 'Tarjeta eliminada con éxito']);
     }
 
 }

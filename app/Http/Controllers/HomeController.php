@@ -59,10 +59,16 @@ class HomeController extends Controller {
 	}
 
 	public function debitTokenUser($idUserSuscription){
-
 		try {
-            $userSubscription = UserSubscription::with('subscription')->with('user')->find($idUserSuscription);
+            $userSubscription = UserSubscription::with('subscription')->with('user')->whereRaw('number_payment < total_payment')->find($idUserSuscription);
+			if(empty($userSubscription)){
+				return response()->json(['msg' => 'error', 'data' => 'El cliente ya completo el número de pagos para esta suscripción']);
+			}
 			$card = Card::where('user_id',$userSubscription->user_id)->where('default_debit',true)->first();
+			if(empty($card)){
+				return response()->json(['msg' => 'error', 'data' => 'El cliente no tiene registrada ninguna tarjeta para proceder con el debito']);
+			}
+			
 			//guardar los que no tienen tarjetas
 			$numberDebit = $userSubscription->number_payment + 1;
 			$datos = [
@@ -73,7 +79,19 @@ class HomeController extends Controller {
 				'dev_reference'=>"$idUserSuscription",
 				'cardToken'=>$card->token
 			];
+			ServicesData::saveTransactionHistory([
+				"transaction_id"=>0,
+				"user_id"=>$userSubscription->user_id,
+				"action"=>"DEBIT TOKEN SEND DATA",
+				"response"=>json_encode($datos)
+			]);
 			$response = ServicesData::debitToken($datos);
+			ServicesData::saveTransactionHistory([
+				"transaction_id"=>0,
+				"user_id"=>$userSubscription->user_id,
+				"action"=>"DEBIT TOKEN RESPONSE DATA",
+				"response"=>json_encode($response)
+			]);
 			//enviar correo
 			if (!empty($response)) {
 				#guardar transaccion

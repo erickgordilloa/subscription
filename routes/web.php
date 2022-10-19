@@ -27,6 +27,7 @@ Route::delete('suscripciones/{id}', 'Guest\UserSubscriptionController@delete')->
 Route::get('tarjetas', 'Guest\CardController@index')->name('card.index')->middleware(['checkRole:Suscriptor']);
 Route::post('tarjetas/data', 'Guest\CardController@data')->name('card.data')->middleware(['checkRole:Suscriptor']);
 Route::post('tarjetas', 'Guest\CardController@create')->name('card.create')->middleware(['checkRole:Suscriptor']);
+Route::post('tarjetas/delete', 'Guest\CardController@delete')->name('card.create')->middleware(['checkRole:Suscriptor']);
 Route::get('pagos', 'Guest\UserSubscriptionController@pagos')->name('pagos.index')->middleware(['checkRole:Suscriptor']);
 Route::post('pagos/data', 'Guest\UserSubscriptionController@pagosData')->name('pagos.data')->middleware(['checkRole:Suscriptor']);
 Route::get('perfil', 'Guest\PerfilController@index')->name('perfil.index')->middleware(['checkRole:Suscriptor']);

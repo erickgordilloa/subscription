@@ -124,7 +124,7 @@
      * @param payment_client_app_code provided by Paymentez.
      * @param payment_client_app_key provided by Paymentez.
      */
-    Payment.init('stg', 'TPP3-EC-CLIENT', 'ZfapAKOk4QFXheRNvndVib9XU3szzg');
+    Payment.init('stg', '{{ env('CLIENT_APP_CODE') }}', '{{ env('CLIENT_APP_KEY') }}');
 
     let form = $("#add-card-form");
     let submitButton = form.find("button");

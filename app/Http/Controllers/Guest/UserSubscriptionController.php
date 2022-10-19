@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guest;
 use App\UserSubscription;
 use App\TypeSubscription;
 use App\Transaction;
+use App\Card;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,10 @@ class UserSubscriptionController extends Controller
 
     public function suscribir(Request $request){
         try{
+            $verifyCard = Card::where('user_id',auth()->user()->id)->count();
+            if($verifyCard <= 0){
+                return response()->json(['msg' => 'error', 'data' => 'Primero registre una tarjeta una <a href="tarjetas">tarjeta</a>']);
+            }
             $total_payment = TypeSubscription::find($request->type_subscription_id);
             $userSubscription = new UserSubscription;
             $userSubscription->user_id = auth()->user()->id;

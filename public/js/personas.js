@@ -177,12 +177,12 @@ function cobrar(id, name) {
                 },
                 success: function (d) {
                     Swal.close();
-                    view_table();
                     if (d["msg"] == "success") {
                         Swal.fire("¡Cobrar!", d["data"], "success");
                     } else {
                         Swal.fire("¡Oops!", d["data"], "error");
                     }
+                    view_table();
                 },
                 error: function (xhr) {
                     Swal.close();

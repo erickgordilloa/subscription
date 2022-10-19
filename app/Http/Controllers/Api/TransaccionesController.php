@@ -156,7 +156,7 @@ class TransaccionesController extends Controller
 				'headers' => $headers
 			]);
 
-			$body = [
+			return $body = [
 				'card'=>[
 					'token'=>$request->cardToken
 				],

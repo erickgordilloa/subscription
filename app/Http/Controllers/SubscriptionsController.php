@@ -76,7 +76,6 @@ class SubscriptionsController extends Controller
 
 	public function deleteFile(Request $request){
 		$eliminar = SubscriptionFiles::find($request->id)->delete();
-
 		return response()->json(['msg' => 'success', 'data' => 'Se ha guardado correctamente el archivo ']);
 	}
 	

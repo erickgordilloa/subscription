@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Transaction;
+use App\UserSubscription;
 use App\Subscription;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
@@ -10,6 +11,7 @@ use App\Exports\TransactionExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Mail\SendNotification;
 use Illuminate\Support\Facades\Mail;
+use ServicesData;
 
 class TransactionsController extends Controller {
 
@@ -69,8 +71,22 @@ class TransactionsController extends Controller {
 				]
 			];
 
+			ServicesData::saveTransactionHistory([
+				"transaction_id"=>0,
+				"user_id"=>0,
+				"action"=>"REFUND SEND DATA",
+				"response"=>json_encode($body)
+			]);
+
 			$response  = $client->request('POST','v2/transaction/refund/', [
 			    'body' => json_encode($body) 
+			]);
+
+			ServicesData::saveTransactionHistory([
+				"transaction_id"=>0,
+				"user_id"=>0,
+				"action"=>"REFUND RESPONSE DATA",
+				"response"=>json_encode($response)
 			]);
 
 			$response = json_decode($response->getBody(), true);
@@ -82,6 +98,13 @@ class TransactionsController extends Controller {
 				$transaction->user_refund = auth()->user()->id;
 				$transaction->date_refund = Carbon::now();
 				$transaction->save();
+
+				if($transaction){
+					$userSubscription = UserSubscription::find($transaction->subscription_id);
+					$userSubscription->number_payment = $userSubscription->number_payment - 1;
+					$userSubscription->save();
+				}
+
 				return $transaction ? ['status' => 'success', 'detail' => 'Reembolso realizado con éxito'] : ['status' => 'error', 'detail' => 'Ocurrio un error al realizar la transacción'];
 			}else{
 				return $response;

@@ -7,8 +7,8 @@
     </tr>
     </thead>
     <tbody>
-    {{-- @foreach($results['cards'] as $rst) --}}
-    @foreach($results as $rst)
+    @foreach($results['cards'] as $rst)
+    {{-- @foreach($results as $rst) --}}
         <tr>
             <td>
                 {{$rst['bin']}}XXXXXX{{$rst['number']}}<br/>
@@ -18,7 +18,7 @@
                 {{$rst['status']}}
             </td>
             <td>
-                <button onclick="eliminar({{$rst['id']}},'{{$rst['bin']}}XXXXXX{{$rst['number']}}')" type="button"
+                <button onclick="eliminar('{{$rst['token']}}','{{$rst['bin']}}XXXXXX{{$rst['number']}}')" type="button"
                     class="btn btn-danger btn_delete"><i class="fas fa-trash"></i> Eliminar</button>
               
             </td>

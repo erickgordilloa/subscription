@@ -14,7 +14,7 @@
         $(function () {
       
           
-          Payment.init('stg', 'TPP3-EC-CLIENT', 'ZfapAKOk4QFXheRNvndVib9XU3szzg');
+            Payment.init('stg', '{{ env('CLIENT_APP_CODE') }}', '{{ env('CLIENT_APP_KEY') }}');
       
           let form = $("#add-card-form");
           let submitButton = form.find("button");
@@ -170,7 +170,7 @@
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                 <div class="row justify-content-center">
                     <div class="col-md-8">
-                        <div class="card">
+                        <div class="card border-primary">
                             <div class="card-header"> Agregar tarjeta </div>
             
                             <div class="card-body">

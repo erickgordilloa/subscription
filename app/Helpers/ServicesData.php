@@ -2,7 +2,9 @@
 
 namespace App\Helpers;
 use GuzzleHttp\Client;
+use App\TransactionHistory;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class ServicesData
 {
@@ -39,7 +41,7 @@ class ServicesData
 
 			$url = "/v2/card/list?uid=$userId";
 			$response  = $client->request('GET',$url);
-			$response = json_decode($response->getBody(), true);
+			$response = json_decode($response->getBody()->getContents(), true);
 
 			return $response;
 
@@ -52,7 +54,7 @@ class ServicesData
 		}
     }
 
-	public static function deleteCard($userId, $cardToken) {
+	public static function deleteCard($cardToken,$uid) {
     	try {
 			$SERVER_APP_CODE = env('SERVER_APP_CODE');
 			$SERVER_APP_KEY = env('SERVER_APP_KEY');
@@ -81,17 +83,23 @@ class ServicesData
 					'token'=>$cardToken
 				],
 				'user'=>[
-					'id'=>$userId
+					'id'=>"$uid"
 				]
 			];
+
 			$url = "/v2/card/delete/";
+
 			$response  = $client->request('POST',$url, [
 			    'body' => json_encode($body) 
 			]);
-			$response = json_decode($response->getBody(), true);
-			return $response;
+
+			return json_decode($response->getBody(), true);
+
+
 		} catch (Exception $e) {
-			return response()->json([
+			
+			return response()->json(
+				[
 					'status' => 'error',
 					'message' => $e->getMessage()
 				],400);
@@ -158,6 +166,22 @@ class ServicesData
 					'message' => $e->getMessage()
 				],400);
 		}
+	}
+
+	public static function saveTransactionHistory($request = []){
+		try {
+            if(!empty($request)){
+                $transactionHistory = new TransactionHistory;
+                $transactionHistory->transaction_id = $request['transaction_id'];
+                $transactionHistory->user_id = $request['user_id'];
+                $transactionHistory->action = $request['action'];
+                $transactionHistory->response = $request['response'];
+                $transactionHistory->save();
+                return $transactionHistory;
+            }
+		} catch (Exception $e) {
+            return 'Ocurrio un error al guardar transaccion, '.$e->getMessage();
+        }
 	}
 
     
