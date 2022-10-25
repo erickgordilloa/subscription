@@ -16,7 +16,7 @@
                 {{$rst->subscription->nombre}}<br/>
             </td>
             <td>
-                {{$rst->card->bin}}XXXXXX{{$rst->card->number}}<br/>
+                {{$rst->card->bin ?? ''}}XXXXXX{{$rst->card->number ?? ''}}<br/>
             </td>
             <td>
                 ${{$rst->amount ? number_format($rst->amount, 2, '.', ',') : '0.00'}}
