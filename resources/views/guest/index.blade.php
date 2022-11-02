@@ -57,7 +57,7 @@
                                       </div>
 
                                     @guest
-                                    <a class="btn btn-primary mt-3 btn-block" href="{{ route('login') }}">suscribirse ${{$rst->monto ? number_format($rst->monto, 2, '.', ',') : '0.00'}}</a>
+                                    <a class="btn btn-primary mt-3 btn-block" href="{{ route('register') }}">suscribirse ${{$rst->monto ? number_format($rst->monto, 2, '.', ',') : '0.00'}}</a>
                                     @else
                                     @if (Auth::user()->role->name == 'Suscriptor')
                                         <button onclick="subscribirse({{$rst->id}},'{{$rst->nombre}}')" class="btn btn-primary mt-3 btn-block">suscribirse ${{$rst->monto ? number_format($rst->monto, 2, '.', ',') : '0.00'}}</button>    
