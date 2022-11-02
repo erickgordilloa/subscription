@@ -58,64 +58,72 @@
             </button>
           
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto"  style="margin-top: 14px;">
-                <li class="nav-item">
-                    <a class="nav-link {{ Route::is('suscriptor.suscripciones') ? 'active' : '' }}" href="{{ route('suscriptor.suscripciones') }}">{{ __('Suscripciones') }}</a>
-                </li>
-                @guest
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar Sesión') }}</a>
-                        </li>
+                <ul class="navbar-nav mr-auto"  style="margin-top: 14px;">
+                    @guest
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Crear cuenta') }}</a>
                             </li>
                         @endif
-                    @else
-                    @if (Auth::user()->role->name == 'Suscriptor')
-                        <li class="nav-item">
-                            <a class="nav-link {{ Route::is('suscriptor.pedidos') ? 'active' : '' }}" href="{{ route('suscriptor.pedidos') }}">{{ __('Pedidos') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Route::is('card.index') ? 'active' : '' }}" href="{{ route('card.index') }}">{{ __('Tarjetas') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Route::is('pagos.index') ? 'active' : '' }}" href="{{ route('pagos.index') }}">{{ __('Pagos') }}</a>
-                        </li>
-                    @endif
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ Route::is('perfil.index') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                            {{ Auth::user()->name }} 
-                        </a>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="{{ route('perfil.index') }}">Perfil</a>
-                          <a class="dropdown-item" href="{{ route('logout') }}"
-                          onclick="event.preventDefault();
-                                      document.getElementById('logout-form').submit();">Cerrar sesión</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-
-                    
                     @endguest
-
-               
-              </ul>
-              <form class="form-inline my-2 my-lg-0" action="{{route('suscriptor.index')}}">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('suscriptor.suscripciones') ? 'active' : '' }}" href="{{ route('suscriptor.suscripciones') }}">{{ __('Suscripciones disponibles') }}</a>
+                    </li>
+                    @guest
+                            {{--SI ES INVITADO--}}
+                    @else
+                        @if (Auth::user()->role->name == 'Suscriptor')
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::is('suscriptor.pedidos') ? 'active' : '' }}" href="{{ route('suscriptor.pedidos') }}">{{ __('Pedidos') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::is('card.index') ? 'active' : '' }}" href="{{ route('card.index') }}">{{ __('Tarjetas') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::is('pagos.index') ? 'active' : '' }}" href="{{ route('pagos.index') }}">{{ __('Pagos') }}</a>
+                            </li>
+                        @endif
+                    @endguest
+                </ul>
+                <div class=" my-2 my-lg-0">
+                    <ul class="navbar-nav mr-auto"  style="margin-top: 14px;">
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" style="font-weight: 100" href="{{ route('login') }}">{{ __('Iniciar Sesión') }}</a>
+                        </li>
+                    @else
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle {{ Route::is('perfil.index') ? 'active' : '' }}" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->name }} 
+                            </a>
+                            <div class="dropdown-menu">
+                                @if (Auth::user()->role->name == 'Suscriptor')
+                                    <a class="dropdown-item" href="{{ route('perfil.index') }}">Perfil</a>
+                                @else
+                                    <a class="dropdown-item" href="{{ route('home') }}">Administrar</a>
+                                @endif
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">Cerrar sesión</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endguest
+                    </ul>
+                </div>
+              {{-- <form class="form-inline my-2 my-lg-0" action="{{route('suscriptor.index')}}">
                 <input class="form-control mr-sm-2" type="search" name="q" value='{{ $search ?? '' }}' value="{{ request('search') }}" placeholder="Buscar" aria-label="Buscar">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-              </form>
+              </form> --}}
             </div>
           </nav>
        
         
 
 
-        <main role="main" class="py-4">
+        <main role="main" class="py-4 background-body">
                 @yield('content')
         </main>
 

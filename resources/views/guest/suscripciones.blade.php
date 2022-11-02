@@ -1,5 +1,15 @@
 @extends('guest.layout')
 
+@section('css')
+<style>
+    body {
+    font-family: "Kanit", sans-serif;
+    background-color: #fff !important;
+    margin: 0;
+    margin-bottom: 10vh;
+}
+</style>
+
 @section('js')
     <script>
         $(document).ready(function () {
@@ -75,7 +85,9 @@
                                             <div class="card-body">
                                             <h5 class="card-title">{{$rst->subscription->nombre}}</h5>
                                             <p class="card-text">{{$rst->subscription->detalle}}.</p>
-                                            <p class="card-text">Tipo de suscripción: {{$rst->typeSubscription->name}}.</p>  
+                                            <p class="card-text">Tipo de suscripción: {{$rst->typeSubscription->name??''}}.</p>  
+                                            <p class="card-text">Marca de Café: {{$rst->brand->name ?? ''}}.</p>  
+                                            <p class="card-text">Tipo de Grano: {{$rst->type->name ?? ''}}.</p>  
                                             <button onclick="cancelar({{$rst->id}},'{{$rst->subscription->nombre}}')"  class="btn btn-danger mt-3">Cancelar suscripción</button>
                                             </div>
                                         </div>

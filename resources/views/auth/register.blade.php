@@ -1,11 +1,24 @@
 @extends('guest.layout')
 
+@section('css')
+<style>
+    .background-body {
+        background: url("/assets/images/background.jpg") no-repeat center center
+            fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        height: 82vh;
+    }
+</style>
+@stop
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Registro') }}</div>
+                <div class="card-header">{{ __('Crea una cuenta para tu suscripción') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -58,6 +71,14 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-4">
+                                <small style="font-size: 12px" class="form-check-label">
+                                    Si ya tienes una cuenta <a style="color: #3490dc;background-color: transparent;" href="{{ route('login') }}">INICIA SESION AQUÍ</a>
+                                </small>
                             </div>
                         </div>
 

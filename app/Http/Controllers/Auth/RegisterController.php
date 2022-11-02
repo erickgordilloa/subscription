@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller {
 	/*
@@ -126,5 +127,16 @@ class RegisterController extends Controller {
 	public function data() {
 		$results = User::where('status','A')->where('role_id',1)->get();
 		return view('usuarios.tabla', compact('results'));
+	}
+
+	public function showRegistrationForm()
+	{
+		if(Auth::check()){
+			if(auth()->user()->role_id == 1){ #admin
+				return redirect()->route('home');
+			}
+			return redirect()->route('suscriptor.suscripciones'); 
+		}
+		return view('auth.register');
 	}
 }

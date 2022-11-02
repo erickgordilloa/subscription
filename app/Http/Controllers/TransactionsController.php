@@ -26,7 +26,7 @@ class TransactionsController extends Controller {
 	}
 
 	public function data(Request $request) {
-		$results = Transaction::with('subscription')->with('user')->orderBy('created_at','DESC')
+		 $results = Transaction::with('subscription')->with('user')->with('reference')->with('reference.brand')->with('reference.type')->orderBy('created_at','DESC')
 		->whereBetween('transactions.created_at', [$request->fecha_ini.' 00:00:00', $request->fecha_fin.' 23:59:59'])
 		->where('transactions.status','like',"%$request->estado%")
 		->get();

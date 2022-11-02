@@ -1,6 +1,5 @@
 @extends('guest.layout')
 
-
 @section('js')
     <script src="{{ asset('../js/cards.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -93,6 +92,9 @@
                             Swal.fire("Éxito", "Tarjeta en revisión", "warning");
                         }else{
                             Swal.fire("Éxito", d["data"], "success");
+                            setTimeout(() => {
+                                window.location = "/suscripciones";
+                            }, 2500);
                         }
                     } else {
                         Swal.fire("¡Oops!", d["data"], "error");
@@ -139,19 +141,19 @@
 <div class="container">
     <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
         <li class="nav-item">
-        <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0" aria-selected="true">
-        <span>Listado</span>
+        <a role="tab" class="nav-link active" id="tab-1" data-toggle="tab" href="#tab-content-1" aria-selected="false">
+        <span>Agregar tarjeta</span>
         </a>
         </li>
         <li class="nav-item">
-        <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1" aria-selected="false">
-        <span>Agregar tarjeta</span>
+        <a role="tab" class="nav-link " id="tab-0" data-toggle="tab" href="#tab-content-0" aria-selected="true">
+        <span>Listado</span>
         </a>
         </li>
         </ul>
 
         <div class="tab-content mt-3">
-            <div class="tab-pane tabs-animation fade active show" id="tab-content-0" role="tabpanel">
+            <div class="tab-pane tabs-animation fade " id="tab-content-0" role="tabpanel">
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <div class="card border-primary">
@@ -167,7 +169,7 @@
                     </div>  
                 </div>
             </div>
-            <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
+            <div class="tab-pane tabs-animation fade active show" id="tab-content-1" role="tabpanel">
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <div class="card border-primary">

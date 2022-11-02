@@ -15,7 +15,9 @@
                 {{$rst->user->email}}
             </td>
             <td>
-                {{$rst->subscription->nombre}}
+                {{$rst->subscription->nombre ?? ''}}<br/>
+                <b>Marca de Café:</b> {{$rst->brand->name ?? ''}}<br/>
+                <b>Tipo de Grano:</b> {{$rst->type->name ?? ''}}
             </td>
             <td>
                 {{$rst->typeSubscription->name}}<br/>

@@ -10,7 +10,8 @@
 body {
     font-family: "Kanit", sans-serif;
     background-color: #fff;
-    /*position: relative;*/
+    margin: 0;
+    margin-bottom: 10vh;
 }
 ul {
     margin-top: 0;
@@ -19,6 +20,14 @@ ul {
 .principal {
     background: #396588 !important;
     color: #fff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+html {
+    min-height: 100%;
+    position: relative;
 }
 
 img.custom-logo {

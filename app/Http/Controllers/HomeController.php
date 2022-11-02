@@ -30,7 +30,7 @@ class HomeController extends Controller {
 	}
 
 	public function data() {
-	 	$results = UserSubscription::with('user')->with('subscription')->with('typeSubscription')->get();
+	 	$results = UserSubscription::with('user')->with('brand')->with('type')->with('subscription')->with('typeSubscription')->get();
 		return view('personas.tabla', compact('results'));
 	}
 

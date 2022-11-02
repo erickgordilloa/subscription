@@ -22,6 +22,10 @@ class Transaction extends Model {
 	public function subscription() {
 		return $this->belongsTo(Subscription::class);
 	}
+
+	public function reference() {
+		return $this->belongsTo(UserSubscription::class,'dev_reference');
+	}
 	
 	//pertene a
 	public function card() {

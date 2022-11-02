@@ -47,7 +47,18 @@ function subscribirse(id, name) {
                     if (d["msg"] == "success") {
                         Swal.fire("¡Suscribirse!", d["data"], "success");
                     } else {
-                        Swal.fire("¡Oops!", d["data"], "error");
+                        //Swal.fire("¡Oops!", d["data"], "error");
+                        Swal.fire({
+                            title: "¡Oops!",
+                            icon: "error",
+                            html: d["data"],
+                            confirmButtonText: "Añadir tarjeta",
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                                window.location = "/tarjetas";
+                            }
+                        });
                     }
                 },
                 error: function (xhr) {

@@ -19,7 +19,7 @@ class UserSubscriptionController extends Controller
         try{
             $verifyCard = Card::where('user_id',auth()->user()->id)->count();
             if($verifyCard <= 0){
-                return response()->json(['msg' => 'error', 'data' => 'Primero registre una tarjeta una <a href="tarjetas">tarjeta</a>']);
+                return response()->json(['msg' => 'error', 'data' => 'Aún no tienes una tarjeta agregada <br/> Agrega una y vuelve a intentarlo']);
             }
             $total_payment = TypeSubscription::find($request->type_subscription_id);
             $userSubscription = new UserSubscription;
@@ -39,7 +39,7 @@ class UserSubscriptionController extends Controller
     }
 
     public function suscripciones(){
-         $suscripciones = UserSubscription::with('user')->with('subscription')->with('typeSubscription')->where('user_id',auth()->user()->id)->paginate(10);
+        $suscripciones = UserSubscription::with('user')->with('subscription')->with('brand')->with('type')->with('typeSubscription')->where('user_id',auth()->user()->id)->paginate(10);
         return view('guest.suscripciones',compact('suscripciones'));
     }
 

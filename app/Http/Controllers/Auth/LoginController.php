@@ -50,6 +50,6 @@ class LoginController extends Controller
             return redirect()->route('home');
         }
         //suscriptor
-        return redirect()->route('suscriptor.index');       
+        return redirect()->route('suscriptor.suscripciones');       
     }
 }

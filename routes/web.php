@@ -19,7 +19,8 @@ Route::get('/login', function () {
 })->name('login');
 
 #RUTAS DEL SUSCRIPTOR
-Route::get('/', 'Guest\IndexController@index')->name('suscriptor.index');
+#Route::get('/', 'Guest\IndexController@index')->name('suscriptor.index');
+Route::get('/', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::get('suscripciones', 'Guest\IndexController@index')->name('suscriptor.suscripciones');
 Route::get('pedidos', 'Guest\UserSubscriptionController@suscripciones')->name('suscriptor.pedidos')->middleware(['checkRole:Suscriptor']);
 Route::post('suscribir', 'Guest\UserSubscriptionController@suscribir')->name('suscriptor.suscribir')->middleware(['checkRole:Suscriptor']);
