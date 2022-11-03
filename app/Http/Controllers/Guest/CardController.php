@@ -54,10 +54,15 @@ class CardController extends Controller
         $card = Card::where("token",$request->cardToken)->first();
         if(!empty($card)){
             $card->delete();
+            $default = Card::where("user_id",auth()->user()->id)->where("status","valid")->first();
+            if(!empty($default)){
+                $default->update(['default_debit' => true]);
+            }
         }
-        ServicesData::deleteCard($request->cardToken,auth()->user()->id);
-       // $result = $card ? ['msg' => 'success', 'data' => 'Tarjeta eliminada con éxito']: ['msg' => 'error', 'data' => 'Ocurrio un error al actualizar información'];
-        return response()->json(['msg' => 'success', 'data' => 'Tarjeta eliminada con éxito']);
+        //return $request->cardToken;
+        $response = ServicesData::deleteCard($request->cardToken,auth()->user()->id);
+        $result = !empty($response['error']) ? ['msg' => 'error', 'data' => $response['error']['description']] : ['msg' => 'success', 'data' => 'Tarjeta eliminada con éxito'];
+        return response()->json($result);
     }
 
 }

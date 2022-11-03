@@ -179,7 +179,9 @@ function cobrar(id, name) {
                     //Swal.close();
                     if (d["msg"] == "success") {
                         Swal.fire("¡Cobrar!", d["data"], "success");
-                        view_table();
+                        setTimeout(() => {
+                            view_table();
+                        }, 2000);
                     } else {
                         Swal.fire("¡Oops!", d["data"], "error");
                     }

@@ -94,16 +94,18 @@ class HomeController extends Controller {
 			]);
 			//enviar correo
 			if (!empty($response)) {
-				#guardar transaccion
-				$transaction = $this->saveTransaction($response,$userSubscription->user_id,$userSubscription->subscription->id,$card->id);
-				if($response['transaction']['status'] == 'success'){
-					$transaction = Transaction::with('subscription')->with('user')->where('transactions.id',$transaction->id)->first();
-					Mail::to($userSubscription->user->email)->cc(env('EMAIL_COPY'))->send(new SendNotification($transaction));
+				if(empty($response['error'])){
+					#guardar transaccion
+					$transaction = $this->saveTransaction($response,$userSubscription->user_id,$userSubscription->subscription->id,$card->id);
+					if($response['transaction']['status'] == 'success'){
+						$transaction = Transaction::with('subscription')->with('user')->where('transactions.id',$transaction->id)->first();
+						Mail::to($userSubscription->user->email)->cc(env('EMAIL_COPY'))->send(new SendNotification($transaction));
+					}
+					$userSubscription->number_payment = $numberDebit;
+					$userSubscription->save();#actualizo el numero de pago
 				}
-				$userSubscription->number_payment = $numberDebit;
-				$userSubscription->save();#actualizo el numero de pago
 			}  
-            $result = $response ? ['msg' => 'success', 'data' => 'Cobro realizado con éxito']: ['msg' => 'error', 'data' => 'Ocurrio un error al actualizar información'];
+            $result = !empty($response['error']) ? ['msg' => 'error', 'data' => $response['error']['type']] : ['msg' => 'success', 'data' => 'Cobro realizado con éxito'];
             return response()->json($result);
         } catch (Exception $e) {
             return response()->json(['msg' => 'error', 'data' => 'Ocurrio un error, '.$e->getMessage()]);

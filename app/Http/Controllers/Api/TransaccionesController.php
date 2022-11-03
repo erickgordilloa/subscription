@@ -18,13 +18,13 @@ class TransaccionesController extends Controller
     	try {
 
     		#return $request['transaction']['dev_reference'];
-    		$transaction = Transaction::find($request['transaction']['dev_reference']);
+    		$transaction = Transaction::where('id_response',$request['transaction']['id'])->first();
 
     		if (!$transaction) {
 	            return response()->json([
 	                'status' => 'error',
 	                'message' => 'transaction not found.'
-	            ], 201);
+	            ], 200);
 	        }
 
 	        $status = "pending";
@@ -49,10 +49,10 @@ class TransaccionesController extends Controller
 			$transaction->status_detail = $request['transaction']['status_detail'];
 			$transaction->save();
 
-			$transaction = Transaction::with('tipo')->with('user')->where('transactions.id',$transaction->id)->first();
+			$transaction = Transaction::with('subscription')->with('user')->where('transactions.id',$transaction->id)->first();
 
 			if (!empty($transaction) && $transaction->status == 'success') {
-				Mail::to($transaction->user->email)->cc('contabilidad@alianzasamborondon.org')->send(new SendNotification($transaction));
+				Mail::to($transaction->user->email)->send(new SendNotification($transaction));
 			}    		
 
     		return response()->json(
@@ -156,19 +156,21 @@ class TransaccionesController extends Controller
 				'headers' => $headers
 			]);
 
-			return $body = [
+			$body = [
 				'card'=>[
 					'token'=>$request->cardToken
 				],
 				'user'=>[
 					'id'=>$request->uid
-				]
-			];
-
+					]
+				];
+				\Log::info("api ".json_encode($body)); 
+			//return $body;
 			$url = "/v2/card/delete/";
 
 			$response  = $client->request('POST',$url, [
-			    'body' => json_encode($body) 
+			    'body' => json_encode($body) ,
+				'http_errors' => false
 			]);
 
 			$response = json_decode($response->getBody(), true);

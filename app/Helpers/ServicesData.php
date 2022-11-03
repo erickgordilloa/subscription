@@ -80,17 +80,18 @@ class ServicesData
 
 			$body = [
 				'card'=>[
-					'token'=>$cardToken
+					'token'=>"$cardToken"
 				],
 				'user'=>[
 					'id'=>"$uid"
 				]
 			];
-
+			
 			$url = "/v2/card/delete/";
 
 			$response  = $client->request('POST',$url, [
-			    'body' => json_encode($body) 
+			    'body' => json_encode($body),
+				'http_errors' => false
 			]);
 
 			return json_decode($response->getBody(), true);
@@ -151,7 +152,8 @@ class ServicesData
 			$url = "/v2/transaction/debit/";
 
 			$response  = $client->request('POST',$url, [
-			    'body' => json_encode($body) 
+			    'body' => json_encode($body),
+				'http_errors' => false
 			]);
 
 			$response = json_decode($response->getBody(), true);

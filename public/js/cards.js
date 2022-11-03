@@ -39,11 +39,18 @@ function eliminar(token, name) {
                     });
                 },
                 success: function (d) {
-                    Swal.fire("¡Eliminado!", "", "success");
-                    view_table();
+                    console.log(d);
+                    if (d["msg"] == "success") {
+                        Swal.fire("¡Eliminado!", "", "success");
+                        setTimeout(() => {
+                            view_table();
+                        }, 2000);
+                    } else {
+                        Swal.fire("¡Ops!", d["data"], "error");
+                    }
                 },
                 error: function (xhr) {
-                    Swal.close();
+                    //Swal.close();
                     toastr.error("Error: " + xhr.statusText + xhr.responseText);
                 },
             });
