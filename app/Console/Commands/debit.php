@@ -44,15 +44,15 @@ class debit extends Command
     public function handle()
     {
         #llamar a todas  las personas
+        $filename = "sucription_" . date("Y-m-d H:i:s") . ".txt";
         try {
-            \Log::info("INICIO");
+            \Storage::append($filename,"INICIO");
             $AllUsers = UserSubscription::with('subscription')->with('user')->whereRaw('number_payment < total_payment')->get();
-            \Log::info("All user --> ".json_encode($AllUsers));
+            \Storage::append($filename,"All user --> ".json_encode($AllUsers));
             foreach($AllUsers as $userSubscription){
-                //$userSubscription = UserSubscription::with('subscription')->with('user')->find($idUserSuscription);
                 $card = Card::where('user_id',$userSubscription->user_id)->where('default_debit',true)->first();
                 if(empty($card->token)){
-                    \Log::info("Not card Token user ");
+                    \Storage::append($filename,"User $userSubscription->user_id --> Not card Token user ");
                     ServicesData::saveTransactionHistory([
                         "transaction_id"=>0,
                         "user_id"=>$userSubscription->user_id,
@@ -78,7 +78,7 @@ class debit extends Command
                     "response"=>json_encode($datos)
                 ]);
                 $response = ServicesData::debitToken($datos);
-                \Log::info(json_encode($response));
+                \Storage::append($filename,"userSubscription $userSubscription->id Response debit --> " . json_encode($response));
                 ServicesData::saveTransactionHistory([
                     "transaction_id"=>0,
                     "user_id"=>$userSubscription->user_id,
@@ -101,16 +101,16 @@ class debit extends Command
                         if($response['transaction']['status'] == 'success'){
                             $transaction = Transaction::with('subscription')->with('user')->where('transactions.id',$transaction->id)->first();
                             Mail::to($userSubscription->user->email)->cc(env('EMAIL_COPY'))->send(new SendNotification($transaction));
+                            \Storage::append($filename,"userSubscription $userSubscription->id Send Mail --> " . $userSubscription->user->email);
                         }
                         $userSubscription->number_payment = $numberDebit;
                         $userSubscription->save();#actualizo el numero de pago
                     }
                 }  
-                //$result = $response ? ['msg' => 'success', 'data' => 'Cobro realizado con éxito']: ['msg' => 'error', 'data' => 'Ocurrio un error al actualizar información'];
-                //return response()->json($result);
             }
-            
+            \Storage::append($filename,"FIN");
         } catch (Exception $e) {
+            \Storage::append($filename,"ERROR --> ".$e->getMessage());
             return response()->json(['msg' => 'error', 'data' => 'Ocurrio un error, '.$e->getMessage()]);
         }
     }
