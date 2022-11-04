@@ -22,10 +22,10 @@
                 ${{$rst->amount ? number_format($rst->amount, 2, '.', ',') : '0.00'}}
             </td>
             <td>
-                <b>Código de Autorización: </b>{{$rst->authorization_code}}<br>
+                <b>Código de Autorización: </b>{{$rst->authorization_code ?? ''}}<br>
                 <b>Id de la transacción: </b>{{$rst->id_response}} <br>
-                <b>Referencia: </b>{{$rst->subscription->nombre}}<br>
-                <b>Fecha de registro: </b>{{$rst->created_at}} <br>
+                <b>Referencia: </b>{{$rst->subscription->nombre?? ''}}<br>
+                <b>Fecha de registro: </b>{{$rst->created_at ?? ''}} <br>
             </td>
             <td>
                 @if($rst->status =="success")
