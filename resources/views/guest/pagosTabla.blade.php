@@ -13,7 +13,7 @@
     @foreach($results as $rst)
         <tr>
             <td>
-                {{$rst->subscription->nombre}}<br/>
+                {{$rst->subscription->nombre ?? ''}}<br/>
             </td>
             <td>
                 {{$rst->card->bin ?? ''}}XXXXXX{{$rst->card->number ?? ''}}<br/>
