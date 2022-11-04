@@ -24,7 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('debit:all')->monthlyOn(1, '07:00')->timezone('America/Guayaquil');
+        #$schedule->command('debit:all')->monthlyOn(1, '07:00')->timezone('America/Guayaquil');
+        $schedule->command('debit:all')->monthlyOn(4, '13:15')->timezone('America/Guayaquil');
     }
 
     /**
