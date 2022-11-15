@@ -42,11 +42,11 @@
             } else if (cardResponse.card.status === 'review') {
                 saveCard(cardResponse,'review');
             } else {
-
+                
               Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: cardResponse.card.message
+                text: 'No se pudo procesar esta tarjeta'
                 });
               
             }
@@ -89,7 +89,7 @@
                     if (d["msg"] == "success") {
                         view_table();
                         if(status == 'review'){
-                            Swal.fire("Éxito", "Tarjeta en revisión", "warning");
+                            Swal.fire("", "Tarjeta en revisión", "warning");
                         }else{
                             Swal.fire("Éxito", d["data"], "success");
                             setTimeout(() => {

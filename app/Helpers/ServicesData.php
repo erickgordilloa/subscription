@@ -121,6 +121,12 @@ class ServicesData
 		
 			$baseUrl = env('API_ENDPOINT');
 
+			$tax = env('TAX_PERCENTAGE');#12
+			$tax_calculate = env('TAX_PERCENTAGE_CALCULATE');#1.12
+
+			$taxable_amount = $datos['amount'] / $tax_calculate;
+			$vat = $datos['amount'] - $taxable_amount;
+
 			$headers = [
 			    'Accept' => 'application/json',
 			  	"Content-Type", "application/x-www-form-urlencoded",
@@ -141,13 +147,21 @@ class ServicesData
 					'amount'=>$datos['amount'],
 					'description'=>$datos['description'],
 					'dev_reference'=>$datos['dev_reference'],
-					'vat'=> 0,
-					'tax_percentage'=> 0
+					'vat'=> $vat,
+					'taxable_amount'=> $taxable_amount,
+					'tax_percentage'=> $tax
 				],
 				'card'=>[
 					'token'=>$datos['cardToken'],
 				]
 			];
+
+			$this->saveTransactionHistory([
+				"transaction_id"=>0,
+				"user_id"=>$datos['id'],
+				"action"=>"DEBIT TOKEN SEND BODY",
+				"response"=>json_encode($body)
+			]);
 
 			$url = "/v2/transaction/debit/";
 
