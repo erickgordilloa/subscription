@@ -156,7 +156,7 @@ class ServicesData
 				]
 			];
 
-			$this->saveTransactionHistory([
+			saveTransactionHistory([
 				"transaction_id"=>0,
 				"user_id"=>$datos['id'],
 				"action"=>"DEBIT TOKEN SEND BODY",
