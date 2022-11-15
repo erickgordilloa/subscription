@@ -124,8 +124,8 @@ class ServicesData
 			$tax = intval(env('TAX_PERCENTAGE'));#12
 			$tax_calculate = env('TAX_PERCENTAGE_CALCULATE');#1.12
 
-			$taxable_amount = bcdiv($datos['amount'] / $tax_calculate, '1', 2);;
-			$vat = bcdiv($datos['amount'] - $taxable_amount, '1', 2);
+			$taxable_amount = floatval(bcdiv($datos['amount'] / $tax_calculate, '1', 2));
+			$vat = floatval(bcdiv($datos['amount'] - $taxable_amount, '1', 2));
 
 			$headers = [
 			    'Accept' => 'application/json',
