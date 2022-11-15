@@ -121,11 +121,11 @@ class ServicesData
 		
 			$baseUrl = env('API_ENDPOINT');
 
-			$tax = env('TAX_PERCENTAGE');#12
+			$tax = intval(env('TAX_PERCENTAGE'));#12
 			$tax_calculate = env('TAX_PERCENTAGE_CALCULATE');#1.12
 
-			$taxable_amount = $datos['amount'] / $tax_calculate;
-			$vat = $datos['amount'] - $taxable_amount;
+			$taxable_amount = bcdiv($datos['amount'] / $tax_calculate, '1', 2);;
+			$vat = bcdiv($datos['amount'] - $taxable_amount, '1', 2);
 
 			$headers = [
 			    'Accept' => 'application/json',
