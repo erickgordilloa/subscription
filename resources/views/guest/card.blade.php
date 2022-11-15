@@ -13,7 +13,7 @@
         $(function () {
       
           
-            Payment.init('stg', '{{ env('CLIENT_APP_CODE') }}', '{{ env('CLIENT_APP_KEY') }}');
+            Payment.init('{{ env('ENV_MODE_PAYMENTEZ') }}', '{{ env('CLIENT_APP_CODE') }}', '{{ env('CLIENT_APP_KEY') }}');
       
           let form = $("#add-card-form");
           let submitButton = form.find("button");
