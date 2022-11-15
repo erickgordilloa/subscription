@@ -79,7 +79,8 @@ class TransactionsController extends Controller {
 			]);
 
 			$response  = $client->request('POST','v2/transaction/refund/', [
-			    'body' => json_encode($body) 
+			    'body' => json_encode($body),
+				'http_errors' => false
 			]);
 
 			ServicesData::saveTransactionHistory([
@@ -100,7 +101,7 @@ class TransactionsController extends Controller {
 				$transaction->save();
 
 				if($transaction){
-					$userSubscription = UserSubscription::find($transaction->subscription_id);
+					$userSubscription = UserSubscription::with('subscription')->with('user')->find($transaction->dev_reference);
 					$userSubscription->number_payment = $userSubscription->number_payment - 1;
 					$userSubscription->save();
 				}
