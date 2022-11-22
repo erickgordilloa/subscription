@@ -25,7 +25,7 @@
             <td>
                  
                     <input type="hidden" name="texto_editable{{ $rst->id }}" id="texto_editable_{{ $rst->id }}" value="{{ $rst->texto }}">
-                    <button onclick="editar({{ $rst->id }},'{{$rst->nombre}}','{{$rst->detalle}}','{{$rst->monto}}','{{$rst->monto_sin_impuesto}}','{{$rst->impuesto}}')" title="Editar" type="button" class="btn btn-success btn-sm"><i class="fas fa-edit"></i> Editar</button>
+                    <button onclick="editar({{ $rst->id }},'{{$rst->nombre}}','{!!$rst->detalle!!}','{{$rst->monto}}','{{$rst->monto_sin_impuesto}}','{{$rst->impuesto}}')" title="Editar" type="button" class="btn btn-success btn-sm"><i class="fas fa-edit"></i> Editar</button>
                     
                     <button onclick="eliminar({{$rst->id}},'{{$rst->nombre}}')" data-id="{{$rst->id}}" data-name="{{$rst->nombre}}" type="button"
                             class="btn btn-danger btn_delete btn-sm"><i class="fas fa-trash"></i> Eliminar</button>
