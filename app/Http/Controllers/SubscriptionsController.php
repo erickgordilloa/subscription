@@ -38,6 +38,8 @@ class SubscriptionsController extends Controller
 				$subscription = new Subscription;
 				$subscription->nombre =  $request->nombre;
 				$subscription->detalle =  $request->detalle;
+				$subscription->monto_sin_impuesto =  $request->monto_sin_impuesto;
+				$subscription->impuesto =  $request->impuesto;
 				$subscription->monto =  $request->monto;
 				$subscription->imagen = $file_name;
 				$subscription->save();
@@ -46,6 +48,8 @@ class SubscriptionsController extends Controller
 				$subscription = Subscription::find($request->id);
 				$subscription->nombre =  $request->nombre;
 				$subscription->detalle =  $request->detalle;
+				$subscription->monto_sin_impuesto =  $request->monto_sin_impuesto;
+				$subscription->impuesto =  $request->impuesto;
 				$subscription->monto =  $request->monto;
 				$subscription->imagen = !empty($file_name) ? $file_name : $subscription->imagen;
 				$subscription->save();

@@ -121,11 +121,7 @@ class ServicesData
 		
 			$baseUrl = env('API_ENDPOINT');
 
-			$tax = intval(env('TAX_PERCENTAGE'));#12
-			$tax_calculate = env('TAX_PERCENTAGE_CALCULATE');#1.12
-
-			$taxable_amount = floatval(bcdiv($datos['amount'] / $tax_calculate, '1', 2));
-			$vat = floatval(bcdiv($datos['amount'] - $taxable_amount, '1', 2));
+			$tax_percentage = intval(env('TAX_PERCENTAGE'));#12
 
 			$headers = [
 			    'Accept' => 'application/json',
@@ -147,9 +143,9 @@ class ServicesData
 					'amount'=>$datos['amount'],
 					'description'=>$datos['description'],
 					'dev_reference'=>$datos['dev_reference'],
-					'vat'=> $vat,
-					'taxable_amount'=> $taxable_amount,
-					'tax_percentage'=> $tax
+					'vat'=> $datos['tax'],
+					'taxable_amount'=> $datos['amount_without_tax'],
+					'tax_percentage'=> $tax_percentage
 				],
 				'card'=>[
 					'token'=>$datos['cardToken'],

@@ -80,25 +80,7 @@
                                 <label tipo="error" id="nombre-error"></label>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="form-group">
-                              <label for="monto" class="col-form-label">Monto</label>
-                              <input type="monto" id="monto" name="monto" class="form-control">
-                              <label tipo="error" id="monto-error"></label>                      
-                            </div>
-                        </div>
                         
-                    </div>
-
-                    <div class="row">
-                        
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="detalle" class="col-form-label">Detalle</label>
-                                <textarea rows="5" maxlength="250" id="detalle" name="detalle" class="form-control"></textarea>
-                                <label tipo="error" id="detalle-error"></label>
-                            </div>
-                        </div>
                         <div class="col">
                             <div class="row">
                                 <div class="col">
@@ -109,27 +91,42 @@
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
+                        
                     </div>
 
-                    {{-- <div class="row">
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="">
+                              <label for="monto_sin_impuesto" class="col-form-label">Monto sin impuesto</label>
+                              <input type="monto_sin_impuesto" id="monto_sin_impuesto" name="monto_sin_impuesto" class="form-control" placeholder="0.00">
+                              <label tipo="error" id="monto_sin_impuesto-error"></label>                      
+                            </div>
+
+                            <div class="">
+                                <label for="impuesto" class="col-form-label">Impuesto</label>
+                                <input type="impuesto" id="impuesto" name="impuesto" class="form-control" placeholder="0.00">
+                                <label tipo="error" id="impuesto-error"></label>                      
+                              </div>
+
+                              <div class="">
+                                <label for="monto" class="col-form-label">Monto total</label>
+                                <input type="monto" id="monto" name="monto" class="form-control" placeholder="0.00">
+                                <label tipo="error" id="monto-error"></label>                      
+                              </div>
+                        </div>
+                        
                         <div class="col">
                             <div class="form-group">
-                              <label for="texto" class="col-form-label">Texto Adjunto</label>
-                              <textarea id="texto" name="texto" rows="7"></textarea>
+                                <label for="detalle" class="col-form-label">Detalle</label>
+                                <textarea rows="5" maxlength="250" id="detalle" name="detalle" class="form-control"></textarea>
+                                <label tipo="error" id="detalle-error"></label>
                             </div>
                         </div>
-                    </div> --}}
+                       
+                    </div>
 
-                    {{--<div class="row">
-                                                                <div class="col">
-                                                                    <div class="form-group row">
-                                                                      <label for="texto" class="col-form-label col-lg-5">¿Cuantos archivos adjuntos deseas incluir?</label>
-                                                                      <input type="text" name="cantidad" id="cantidad" class="form-control col-lg-2">
-                                                                    </div>
-                                                                </div>
-                                                            </div>--}}
                     <div id="cantidades">
                         
                     </div>         

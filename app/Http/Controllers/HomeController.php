@@ -74,6 +74,8 @@ class HomeController extends Controller {
 			$datos = [
 				'id'=>"$userSubscription->user_id",
 				'email'=>$userSubscription->user->email,
+				'amount_without_tax'=>$userSubscription->subscription->monto_sin_impuesto ?? 0,
+                'tax'=>$userSubscription->subscription->impuesto ?? 0,
 				'amount'=>$userSubscription->subscription->monto,
 				'description'=>"Debito N. $numberDebit",
 				'dev_reference'=>"$idUserSuscription",
@@ -105,7 +107,7 @@ class HomeController extends Controller {
 					$userSubscription->save();#actualizo el numero de pago
 				}
 			}  
-            $result = !empty($response['error']) ? ['msg' => 'error', 'data' => $response['error']['type']] : ['msg' => 'success', 'data' => 'Cobro realizado con éxito'];
+            $result = !empty($response['error']) ? ['msg' => 'error', 'data' => $response['error']['description']] : ['msg' => 'success', 'data' => 'Cobro realizado con éxito'];
             return response()->json($result);
         } catch (Exception $e) {
             return response()->json(['msg' => 'error', 'data' => 'Ocurrio un error, '.$e->getMessage()]);

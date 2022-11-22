@@ -66,6 +66,8 @@ class debit extends Command
                 $datos = [
                     'id'=>"$userSubscription->user_id",
                     'email'=>$userSubscription->user->email,
+                    'amount_without_tax'=>$userSubscription->subscription->monto_sin_impuesto ?? 0,
+                    'tax'=>$userSubscription->subscription->impuesto ?? 0,
                     'amount'=>$userSubscription->subscription->monto,
                     'description'=>"Debito N. $numberDebit",
                     'dev_reference'=>"$userSubscription->id",

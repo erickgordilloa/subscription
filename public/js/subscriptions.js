@@ -8,15 +8,6 @@ $(document).ready(function () {
 
     $('[data-toggle="popover"]').popover();
 
-    /* ClassicEditor.create(document.querySelector("#texto"))
-        .then((editor) => {
-            console.log(editor);
-            ck_texto = editor;
-        })
-        .catch((error) => {
-            console.error(error);
-        }); */
-
     view_table();
 
     $("#cantidad").keyup(function () {
@@ -43,6 +34,27 @@ $(document).ready(function () {
                 "</div>";
         }
         $("#cantidades").append(opcion);
+    });
+
+    $("#monto_sin_impuesto").on("keyup", function (e) {
+        var monto_sin_impuesto = parseFloat($(this).val());
+        var impuesto = parseFloat($("#impuesto").val());
+        monto_sin_impuesto = !isNaN(monto_sin_impuesto)
+            ? monto_sin_impuesto
+            : 0;
+        impuesto = !isNaN(impuesto) ? impuesto : 0;
+        var total = (monto_sin_impuesto + impuesto).toFixed(2);
+        $("#monto").val(total);
+    });
+    $("#impuesto").on("keyup", function (e) {
+        var monto_sin_impuesto = parseFloat($(this).val());
+        var impuesto = parseFloat($("#monto_sin_impuesto").val());
+        monto_sin_impuesto = !isNaN(monto_sin_impuesto)
+            ? monto_sin_impuesto
+            : 0;
+        impuesto = !isNaN(impuesto) ? impuesto : 0;
+        var total = (monto_sin_impuesto + impuesto).toFixed(2);
+        $("#monto").val(total);
     });
 
     $("#btn_guardar_archivo").click(function () {
@@ -72,10 +84,6 @@ $(document).ready(function () {
             },
             success: function (d) {
                 console.log(d);
-                //  $('#formregisterdiv').html(data);
-                //debugger;
-                //var d = JSON.parse(data);
-                //$('#div_mensajes').removeClass('d-none text-center')
                 if (d["msg"] == "error") {
                     toastr.error(d["data"]);
                 } else {
@@ -103,9 +111,11 @@ $(document).ready(function () {
         data.append("file", $("#file")[0].files[0]);
         data.append("nombre", $("#nombre").val());
         data.append("detalle", $("#detalle").val());
+        data.append("monto_sin_impuesto", $("#monto_sin_impuesto").val());
+        data.append("impuesto", $("#impuesto").val());
         data.append("monto", $("#monto").val());
         data.append("_token", $('meta[name="csrf-token"]').attr("content"));
-
+        console.log("no entra");
         $("#myModal").modal("toggle");
         $.ajax({
             type: "POST",
@@ -187,7 +197,18 @@ $(document).ready(function () {
                 monto_minimo: 0,
                 monto_maximo: 2000,
             },
-            estado: { required: true },
+            monto_sin_impuesto: {
+                required: true,
+                number: true,
+                monto_minimo: 0,
+                monto_maximo: 2000,
+            },
+            impuesto: {
+                required: true,
+                number: true,
+                monto_minimo: 0,
+                monto_maximo: 2000,
+            },
         },
         messages: {
             cedula: {
@@ -224,6 +245,36 @@ $(document).ready(function () {
         },
     });
 });
+
+function trunc(x, posiciones = 0) {
+    var s = x.toString();
+    var l = s.length;
+    var decimalLength = s.indexOf(".") + 1;
+
+    if (l - decimalLength <= posiciones) {
+        return x;
+    }
+    // Parte decimal del número
+    var isNeg = x < 0;
+    var decimal = x % 1;
+    var entera = isNeg ? Math.ceil(x) : Math.floor(x);
+    // Parte decimal como número entero
+    // Ejemplo: parte decimal = 0.77
+    // decimalFormated = 0.77 * (10^posiciones)
+    // si posiciones es 2 ==> 0.77 * 100
+    // si posiciones es 3 ==> 0.77 * 1000
+    var decimalFormated = Math.floor(
+        Math.abs(decimal) * Math.pow(10, posiciones)
+    );
+    // Sustraemos del número original la parte decimal
+    // y le sumamos la parte decimal que hemos formateado
+    var finalNum =
+        entera +
+        (decimalFormated / Math.pow(10, posiciones)) * (isNeg ? -1 : 1);
+
+    console.log(finalNum);
+    return finalNum;
+}
 
 function eliminar(id, name) {
     $.confirm({
@@ -357,11 +408,13 @@ function abrir(botonimg, id) {
     }
 }
 
-function editar(id, nombre, detalle, monto) {
+function editar(id, nombre, detalle, monto, monto_sin_impuesto, impuesto) {
     $("#myModal").modal("toggle");
     $("#id").val(id);
     $("#nombre").val(nombre);
     $("#detalle").val(detalle);
+    $("#monto_sin_impuesto").val(monto_sin_impuesto);
+    $("#impuesto").val(impuesto);
     $("#monto").val(monto);
 }
 
