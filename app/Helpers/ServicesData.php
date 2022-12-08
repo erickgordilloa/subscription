@@ -123,6 +123,10 @@ class ServicesData
 
 			$tax_percentage = intval(env('TAX_PERCENTAGE'));#12
 
+			if($tax_percentage > 0 && $datos['tax'] == 0){
+				return ['error' => ['description' => "Por favor configure los impuestos antes de procesar el cobro"]];
+			}
+
 			$headers = [
 			    'Accept' => 'application/json',
 			  	"Content-Type", "application/x-www-form-urlencoded",

@@ -24,7 +24,7 @@ class CreateCardsTable extends Migration
             $table->string('bin');
             $table->string('number');
             $table->string('type');
-            $table->string('response');
+            $table->text('response');
             $table->boolean('default_debit');
             $table->timestamps();
             $table->softDeletes();
