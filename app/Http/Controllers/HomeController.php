@@ -107,7 +107,7 @@ class HomeController extends Controller {
 					}
 				}
 			}  
-            $result = $response['transaction']['status'] == "success" ? ['msg' => 'success', 'data' => 'Cobro realizado con éxito'] : ['msg' => 'error', 'data' => "El cobro no pudo ser procesado"];
+            $result = $response['transaction']['status'] == "success" ? ['msg' => 'success', 'data' => 'Cobro realizado con éxito'] : ['msg' => 'error', 'data' => "El cobro no pudo ser procesado, ". $request['transaction']['message']];
             return response()->json($result);
         } catch (Exception $e) {
             return response()->json(['msg' => 'error', 'data' => 'Ocurrio un error, '.$e->getMessage()]);
