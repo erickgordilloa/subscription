@@ -104,9 +104,9 @@ class debit extends Command
                             $transaction = Transaction::with('subscription')->with('user')->where('transactions.id',$transaction->id)->first();
                             Mail::to($userSubscription->user->email)->cc(env('EMAIL_COPY'))->send(new SendNotification($transaction));
                             \Storage::append($filename,"userSubscription $userSubscription->id Send Mail --> " . $userSubscription->user->email);
+                            $userSubscription->number_payment = $numberDebit;
+                            $userSubscription->save();#actualizo el numero de pago
                         }
-                        $userSubscription->number_payment = $numberDebit;
-                        $userSubscription->save();#actualizo el numero de pago
                     }
                 }  
             }

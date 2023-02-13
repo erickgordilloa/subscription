@@ -102,12 +102,12 @@ class HomeController extends Controller {
 					if($response['transaction']['status'] == 'success'){
 						$transaction = Transaction::with('subscription')->with('user')->where('transactions.id',$transaction->id)->first();
 						Mail::to($userSubscription->user->email)->cc(env('EMAIL_COPY'))->send(new SendNotification($transaction));
+						$userSubscription->number_payment = $numberDebit;
+						$userSubscription->save();#actualizo el numero de pago
 					}
-					$userSubscription->number_payment = $numberDebit;
-					$userSubscription->save();#actualizo el numero de pago
 				}
 			}  
-            $result = !empty($response['error']) ? ['msg' => 'error', 'data' => $response['error']['description']] : ['msg' => 'success', 'data' => 'Cobro realizado con éxito'];
+            $result = $response['transaction']['status'] == "success" ? ['msg' => 'success', 'data' => 'Cobro realizado con éxito'] : ['msg' => 'error', 'data' => "El cobro no pudo ser procesado"];
             return response()->json($result);
         } catch (Exception $e) {
             return response()->json(['msg' => 'error', 'data' => 'Ocurrio un error, '.$e->getMessage()]);
